@@ -16,8 +16,8 @@ VALUES (100000, 'Admin', 'admin@gmail.com', 'adminpass'),
 
 INSERT INTO USER_ROLES (user_id, role)
 VALUES (100000, 'ROLE_ADMIN'),
-       (100001, 'ROLE_USER'),
-       (100002, 'ROLE_USER');
+       (100001, 'ROLE_USER');
+
 
 INSERT INTO RESTAURANT (id, name)
 VALUES (100000, 'Mac'),
