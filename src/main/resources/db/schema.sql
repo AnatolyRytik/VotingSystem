@@ -41,7 +41,7 @@ ALTER TABLE restaurant
 CREATE TABLE lunch
 (
     id            BIGINT  NOT NULL,
-    lunch_date    DATE    NOT NULL,
+    date          DATE    NOT NULL,
     name          VARCHAR(255),
     price         INTEGER NOT NULL,
     restaurant_id BIGINT  NOT NULL,
