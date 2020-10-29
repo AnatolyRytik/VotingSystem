@@ -7,11 +7,12 @@ DROP TABLE IF EXISTS restaurant;
 
 CREATE TABLE users
 (
-    id       BIGINT               NOT NULL,
-    name     VARCHAR(255)         NOT NULL,
-    email    VARCHAR(255)         NOT NULL,
-    password VARCHAR(255)         NOT NULL,
-    enabled  BOOLEAN DEFAULT TRUE NOT NULL,
+    id         BIGINT                  NOT NULL,
+    name       VARCHAR(255)            NOT NULL,
+    email      VARCHAR(255)            NOT NULL,
+    password   VARCHAR(255)            NOT NULL,
+    registered TIMESTAMP DEFAULT now() NOT NULL,
+    enabled    BOOLEAN   DEFAULT TRUE  NOT NULL,
     CONSTRAINT email_idx UNIQUE (email)
 );
 ALTER TABLE users
