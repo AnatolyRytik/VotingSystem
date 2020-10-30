@@ -1,9 +1,12 @@
 package topjava.graduation.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,9 +15,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
-
 @Entity
 @Table(name = "users")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class User extends AbstractNamedEntity {
 
     @Column(name = "email", nullable = false, unique = true)
@@ -49,9 +55,6 @@ public class User extends AbstractNamedEntity {
     private Set<Role> roles;
 
 
-    public User() {
-    }
-
     public User(User user) {
         this(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getRegistered(), user.getRoles());
     }
@@ -67,59 +70,6 @@ public class User extends AbstractNamedEntity {
         this.enabled = enabled;
         this.registered = registered;
         this.roles = roles;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Date getRegistered() {
-        return registered;
-    }
-
-    public void setRegistered(Date registered) {
-        this.registered = registered;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = EnumSet.copyOf(roles);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", registered=" + registered +
-                ", roles=" + roles +
-                ", name='" + name + '\'' +
-                '}';
     }
 }
 

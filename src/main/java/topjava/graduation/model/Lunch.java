@@ -1,5 +1,6 @@
 package topjava.graduation.model;
 
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,6 +10,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "lunch", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "restaurant_id_name_idx")})
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Lunch extends AbstractNamedEntity {
 
 
@@ -27,9 +32,6 @@ public class Lunch extends AbstractNamedEntity {
     @NotNull
     private Restaurant restaurant;
 
-    public Lunch() {
-    }
-
     public Lunch(Long id, LocalDate date, String name, Double price) {
         super(id, name);
         this.date = date;
@@ -42,36 +44,5 @@ public class Lunch extends AbstractNamedEntity {
         this.price = price;
         this.restaurant = restaurant;
     }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    @Override
-    public String toString() {
-        return "Lunch{" + "id=" + id + ", name='" + name + '\'' + ", date=" + date + ", price=" + price + ", restaurant="
-                + restaurant + '}';
-    }
-
 
 }
