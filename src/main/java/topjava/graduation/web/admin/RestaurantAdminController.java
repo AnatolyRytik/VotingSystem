@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import topjava.graduation.model.Restaurant;
 import topjava.graduation.service.RestaurantService;
+import topjava.graduation.util.exception.NotFoundException;
 
 import java.net.URI;
 import java.util.List;
@@ -25,14 +26,14 @@ public class RestaurantAdminController {
     private RestaurantService service;
 
     @GetMapping
-    public List<Restaurant> getAll() {
+    public ResponseEntity<List<Restaurant>> getAll(){
         log.info("get all restaurants {}");
-        return service.getAll();
+        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable("id") long id) {
-        log.info("get restaurant by id {}", id);
+    public Restaurant getById(@PathVariable("id") long id) throws NotFoundException {
+        log.info("get restaurant with id {}", id);
         return service.getById(id);
     }
 
@@ -55,7 +56,7 @@ public class RestaurantAdminController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Restaurant newRestaurant, @PathVariable("id") int id) {
+    public void update(@RequestBody Restaurant newRestaurant, @PathVariable("id") long id) {
         log.info("update restaurant{} with id {}", newRestaurant, id);
         service.update(newRestaurant, id);
     }
