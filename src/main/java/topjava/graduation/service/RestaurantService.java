@@ -1,59 +1,68 @@
 package topjava.graduation.service;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import topjava.graduation.model.Restaurant;
 import topjava.graduation.repository.RestaurantRepository;
 import topjava.graduation.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static topjava.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
+@RequiredArgsConstructor
 public class RestaurantService {
     private static Logger log = LoggerFactory.getLogger(RestaurantService.class);
 
     @Autowired
-    private RestaurantRepository repository;
+    private final RestaurantRepository restaurantRepository;
 
+    @Transactional(readOnly = true)
     public Restaurant getById(long id) throws NotFoundException {
         log.info("restaurant with id {}", id);
-        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
+        return checkNotFoundWithId(restaurantRepository.findById(id).orElse(null), id);
     }
 
-    public List<Restaurant> getByName(String name) {
-        log.info("find restaurants by title ={}", name);
-        return repository.getByName(name);
-    }
-
+    @Transactional(readOnly = true)
     public List<Restaurant> getAll() {
-        log.info("get all restaurants service {}");
-        return repository.getAll();
+        log.info("get all restaurants");
+        return restaurantRepository.findAll();
     }
 
-    public List<Restaurant> getRestaurantsWithLunches() {
-        log.info("get all restaurants with lunches {}");
-        return repository.getRestaurantsWithLunches();
+    @Transactional(readOnly = true)
+    public List<Restaurant> getAllRestaurantWithLunchesByDate(final LocalDate date) {
+        log.info("Get list of restaurants with lunches by date: {}", date);
+        return restaurantRepository.getAllRestaurantWithLunchesByDate(date);
     }
 
+    @Transactional(readOnly = true)
+    public Restaurant getRestaurantWithLunchesByDate(long id, LocalDate date) {
+        return restaurantRepository.getRestaurantWithLunchesByDate(id, date)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Restaurant with id %s not found", id)));
+    }
+
+    @Transactional
     public void delete(long id) {
         log.info("delete restaurant with id {}", id);
-        checkNotFoundWithId(repository.delete(id), id);
+        checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
-
+    @Transactional
     public void update(Restaurant restaurant, long id) {
         log.info("update restaurant {} with id {}", restaurant, id);
-        checkNotFoundWithId(repository.save(restaurant), id);
+        checkNotFoundWithId(restaurantRepository.save(restaurant), id);
     }
 
+    @Transactional
     public Restaurant create(Restaurant restaurant) {
         log.info("create restaurant {}", restaurant);
-        return repository.save(restaurant);
+        return restaurantRepository.save(restaurant);
     }
-
 }
-
