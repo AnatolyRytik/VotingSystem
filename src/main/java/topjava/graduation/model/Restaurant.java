@@ -1,29 +1,25 @@
 package topjava.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "restaurant", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "name_idx")})
+@Table(name = "restaurant")
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data
 public class Restaurant extends AbstractNamedEntity {
 
-    @Column(name = "name", nullable = false, unique = true)
-    @Size(min = 2, max = 70)
-    @NotBlank
-    private String name;
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @OrderBy("name DESC")
+    @JsonManagedReference(value = "restaurant")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private List<Lunch> lunches;
 
 

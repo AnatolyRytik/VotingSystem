@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "vote_restaurant", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "vote_date"}, name = "user_vote_date_idx")})
+@Table(name = "vote_restaurant", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "user_vote_date_idx")})
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -33,7 +33,7 @@ public class Vote extends AbstractBaseEntity {
     private Restaurant restaurant;
 
 
-    @Column(name = "vote_date", unique = true)
+    @Column(name = "date", unique = true)
     @NotNull
     private LocalDate date;
 

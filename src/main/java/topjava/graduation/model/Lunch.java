@@ -1,5 +1,7 @@
 package topjava.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -17,19 +19,20 @@ import java.time.LocalDate;
 public class Lunch extends AbstractNamedEntity {
 
 
-    @Column(name = "date", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
-
+    @NotNull
     @Column(name = "price", nullable = false)
     private Double price;
 
 
+    @JsonBackReference(value = "restaurant")
     @JoinColumn(name = "restaurant_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
     private Restaurant restaurant;
 
     public Lunch(Long id, LocalDate date, String name, Double price) {
