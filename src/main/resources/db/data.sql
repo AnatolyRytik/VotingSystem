@@ -1,13 +1,13 @@
 DELETE
-FROM users;
-DELETE
 FROM user_roles;
-DELETE
-FROM restaurant;
 DELETE
 FROM dishes;
 DELETE
 FROM vote_restaurant;
+DELETE
+FROM restaurant;
+DELETE
+FROM users;
 
 INSERT INTO users (id, name, email, password)
 VALUES (0, 'Admin', 'admin@gmail.com', 'adminpass'),
