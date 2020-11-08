@@ -11,12 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "lunch", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "restaurant_id_name_idx")})
+@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "restaurant_id_name_idx")})
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lunch extends AbstractNamedEntity {
+public class Dish extends AbstractNamedEntity {
 
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -35,13 +35,13 @@ public class Lunch extends AbstractNamedEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    public Lunch(Long id, LocalDate date, String name, Double price) {
+    public Dish(Long id, LocalDate date, String name, Double price) {
         super(id, name);
         this.date = date;
         this.price = price;
     }
 
-    public Lunch(Long id, LocalDate date, String name, Double price, Restaurant restaurant) {
+    public Dish(Long id, LocalDate date, String name, Double price, Restaurant restaurant) {
         super(id, name);
         this.date = date;
         this.price = price;

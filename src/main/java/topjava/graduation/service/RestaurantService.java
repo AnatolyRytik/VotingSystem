@@ -36,14 +36,14 @@ public class RestaurantService {
     }
 
     @Transactional(readOnly = true)
-    public List<Restaurant> getAllRestaurantWithLunchesByDate(final LocalDate date) {
-        log.info("Get list of restaurants with lunches by date: {}", date);
-        return restaurantRepository.getAllRestaurantWithLunchesByDate(date);
+    public List<Restaurant> getAllRestaurantWithDishesByDate(final LocalDate date) {
+        log.info("Get list of restaurants with dishes by date: {}", date);
+        return restaurantRepository.getAllRestaurantWithDishesByDate(date);
     }
 
     @Transactional(readOnly = true)
-    public Restaurant getRestaurantWithLunchesByDate(long id, LocalDate date) {
-        return restaurantRepository.getRestaurantWithLunchesByDate(id, date)
+    public Restaurant getRestaurantWithDishesByDate(long id, LocalDate date) {
+        return restaurantRepository.getRestaurantWithDishesByDate(id, date)
                 .orElseThrow(() -> new NotFoundException(
                         String.format("Restaurant with id %s not found", id)));
     }

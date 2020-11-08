@@ -1,6 +1,6 @@
 package topjava.graduation.to;
 
-import topjava.graduation.model.Lunch;
+import topjava.graduation.model.Dish;
 import topjava.graduation.model.Vote;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public class RestaurantTo {
 
     private String name;
 
-    private List<Lunch> lunchList;
+    private List<Dish> dishList;
 
     private List<Vote> votes;
 
@@ -20,10 +20,10 @@ public class RestaurantTo {
     public RestaurantTo() {
     }
 
-    public RestaurantTo(Integer id, String name, List<Lunch> lunchList, List<Vote> votes, int countVote) {
+    public RestaurantTo(Integer id, String name, List<Dish> dishList, List<Vote> votes, int countVote) {
         this.id = id;
         this.name = name;
-        this.lunchList = lunchList;
+        this.dishList = dishList;
         this.votes = votes;
         this.countVote = countVote;
     }
@@ -44,12 +44,12 @@ public class RestaurantTo {
         this.name = name;
     }
 
-    public List<Lunch> getLunchList() {
-        return lunchList;
+    public List<Dish> getDishList() {
+        return dishList;
     }
 
-    public void setMeals(List<Lunch> lunchList) {
-        this.lunchList = lunchList;
+    public void setMeals(List<Dish> dishList) {
+        this.dishList = dishList;
     }
 
     public List<Vote> getVotes() {
@@ -73,7 +73,7 @@ public class RestaurantTo {
         return "RestaurantTo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", meals=" + lunchList +
+                ", meals=" + dishList +
                 ", votes=" + votes +
                 ", countVote=" + countVote +
                 '}';

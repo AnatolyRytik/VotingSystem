@@ -37,7 +37,7 @@ CREATE TABLE restaurant
 
 
 
-CREATE TABLE lunch
+CREATE TABLE dishes
 (
     id            BIGINT DEFAULT global_seq.nextval PRIMARY KEY,
     date          DATE    NOT NULL,

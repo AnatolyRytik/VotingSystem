@@ -5,7 +5,7 @@ FROM user_roles;
 DELETE
 FROM restaurant;
 DELETE
-FROM lunch;
+FROM dishes;
 DELETE
 FROM vote_restaurant;
 
@@ -25,12 +25,12 @@ VALUES (0, 'Mac'),
        (1, 'Pelmeni'),
        (2, 'SushiVesla');
 
-INSERT INTO lunch (id, date, name, price, restaurant_id)
-VALUES (0, today(), 'Макчикен', 300, 0),
-       (1, today(), 'Кола', 100, 0),
-       (2, today(), 'Картошка фри', 100, 0),
-       (3, '2020-10-25', 'Пельмени', 400, 1),
-       (4, '2020-10-25', 'Роллы', 500, 2);
+INSERT INTO dishes (id, date, name, price, restaurant_id)
+VALUES (0, today(), 'bigmac', 300, 0),
+       (1, today(), 'Coca cola', 100, 0),
+       (2, today(), 'fries', 100, 0),
+       (3, '2020-10-25', 'Pelmeni', 400, 1),
+       (4, '2020-10-25', 'Sushi', 500, 2);
 
 INSERT INTO vote_restaurant (id, date, restaurant_id, user_id)
 VALUES (0, '2020-10-25', 0, 1),

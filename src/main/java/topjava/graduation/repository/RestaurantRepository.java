@@ -15,11 +15,11 @@ import java.util.Optional;
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.lunches d WHERE d.date =:date ORDER BY r.name")
-    List<Restaurant> getAllRestaurantWithLunchesByDate(@Param("date") LocalDate date);
+    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishes d WHERE d.date =:date ORDER BY r.name")
+    List<Restaurant> getAllRestaurantWithDishesByDate(@Param("date") LocalDate date);
 
-    @Query("SELECT r FROM Restaurant r JOIN FETCH r.lunches d WHERE d.date =:date and r.id=:id")
-    Optional<Restaurant> getRestaurantWithLunchesByDate(@Param("id") long id, @Param("date") LocalDate date);
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes d WHERE d.date =:date and r.id=:id")
+    Optional<Restaurant> getRestaurantWithDishesByDate(@Param("id") long id, @Param("date") LocalDate date);
 
     @Modifying
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")
