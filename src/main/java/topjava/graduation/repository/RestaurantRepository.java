@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishes d WHERE d.date =:date ORDER BY r.name")
@@ -22,9 +22,14 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Optional<Restaurant> getRestaurantWithDishesByDate(@Param("id") long id, @Param("date") LocalDate date);
 
     @Modifying
+    @Transactional
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") long id);
 
     Optional<Restaurant> findByName(String name);
+
+    @Transactional
+    @Override
+    Restaurant save(Restaurant restaurant);
 
 }
