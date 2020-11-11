@@ -35,9 +35,9 @@ public class RestaurantAdminController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable final String id) {
+    public void delete(@PathVariable("id") long id) {
         log.info("delete restaurant by id {}", id);
-        restaurantService.delete(Long.valueOf(id));
+        restaurantService.delete(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -51,9 +51,9 @@ public class RestaurantAdminController {
     }
 
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable final String id) {
+    public Restaurant get(@PathVariable("id") long id) {
         log.info("GET request: get restaurant by id: {}", id);
-        return restaurantService.getById(Long.valueOf(id));
+        return restaurantService.getById(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
