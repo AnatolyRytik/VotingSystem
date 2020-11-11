@@ -28,7 +28,7 @@ public class RestaurantAdminController {
     private RestaurantService restaurantService;
 
     @GetMapping
-    public ResponseEntity<List<Restaurant>> getAll(){
+    public ResponseEntity<List<Restaurant>> getAll() {
         log.info("get all restaurants {}");
         return new ResponseEntity<>(restaurantService.getAll(), HttpStatus.OK);
     }
@@ -52,7 +52,7 @@ public class RestaurantAdminController {
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable("id") long id) {
-        log.info("GET request: get restaurant by id: {}", id);
+        log.info("get restaurant by id: {}", id);
         return restaurantService.getById(id);
     }
 

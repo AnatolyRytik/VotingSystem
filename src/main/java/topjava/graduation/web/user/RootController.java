@@ -38,8 +38,8 @@ public class RootController {
 
     @GetMapping(value = "/{id}/detail")
     public ResponseEntity<Restaurant> getRestaurantWithDishesByDate(@PathVariable("id") long id,
-                                          @RequestParam(value = "date", required = false)
-                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+                                                                    @RequestParam(value = "date", required = false)
+                                                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         log.info("get restaurant with dishes by date: {}", date);
         LocalDate useDate = date;
         if (useDate == null) useDate = LocalDate.now();

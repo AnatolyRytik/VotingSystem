@@ -4,7 +4,7 @@ import topjava.graduation.model.AbstractBaseEntity;
 
 public class SecurityUtil {
 
-    private static int id = AbstractBaseEntity.START_SEQ;
+    private static int id = 100001;
 
     private SecurityUtil() {
     }
