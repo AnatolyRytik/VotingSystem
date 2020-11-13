@@ -1,10 +1,10 @@
 package topjava.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class Dish extends AbstractNamedEntity {
 
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
     @Column(name = "date", nullable = false)
     private LocalDate date;
@@ -30,6 +30,7 @@ public class Dish extends AbstractNamedEntity {
 
 
     @JsonBackReference(value = "restaurant")
+    //@NotNull
     @JoinColumn(name = "restaurant_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)

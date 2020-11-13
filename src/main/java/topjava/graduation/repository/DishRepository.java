@@ -7,15 +7,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import topjava.graduation.model.Dish;
 
-import java.time.LocalDate;
-import java.util.List;
 
 @Transactional(readOnly = true)
 public interface DishRepository extends JpaRepository<Dish, Long> {
 
-    @Transactional
-    @Override
-    Dish save(Dish dish);
 
     @Transactional
     @Modifying
