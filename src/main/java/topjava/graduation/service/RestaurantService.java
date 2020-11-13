@@ -10,7 +10,6 @@ import topjava.graduation.model.Restaurant;
 import topjava.graduation.repository.RestaurantRepository;
 import topjava.graduation.util.exception.NotFoundException;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static topjava.graduation.util.ValidationUtil.checkNotFoundWithId;
@@ -28,20 +27,14 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.findById(id).orElse(null), id);
     }
 
+    public List<Restaurant> findByName(String name) {
+        log.info("find restaurants by title ={}", name);
+        return restaurantRepository.findByName(name);
+    }
+
     public List<Restaurant> getAll() {
         log.info("get all restaurants");
         return restaurantRepository.findAll();
-    }
-
-    public List<Restaurant> getAllRestaurantWithDishesByDate(final LocalDate date) {
-        log.info("Get list of restaurants with dishes by date: {}", date);
-        return restaurantRepository.getAllRestaurantWithDishesByDate(date);
-    }
-
-    public Restaurant getRestaurantWithDishesByDate(long id, LocalDate date) {
-        return restaurantRepository.getRestaurantWithDishesByDate(id, date)
-                .orElseThrow(() -> new NotFoundException(
-                        String.format("Restaurant with id %s not found", id)));
     }
 
     public void delete(long id) {

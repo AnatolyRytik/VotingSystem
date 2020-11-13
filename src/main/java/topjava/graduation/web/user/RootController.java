@@ -26,23 +26,15 @@ public class RootController {
     @Autowired
     private RestaurantService restaurantService;
 
-    @GetMapping(value = "/dishes")
-    public ResponseEntity<List<Restaurant>> getAllRestaurantWithDishesByDate(
-            @RequestParam(value = "date", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        log.info("get list of restaurants with dishes by date: {}", date);
-        LocalDate useDate = date;
-        if (useDate == null) useDate = LocalDate.now();
-        return new ResponseEntity<>(restaurantService.getAllRestaurantWithDishesByDate(useDate), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<Restaurant>> getAll() {
+        log.info("get all restaurants {}");
+        return new ResponseEntity<>(restaurantService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}/detail")
-    public ResponseEntity<Restaurant> getRestaurantWithDishesByDate(@PathVariable("id") long id,
-                                                                    @RequestParam(value = "date", required = false)
-                                                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        log.info("get restaurant with dishes by date: {}", date);
-        LocalDate useDate = date;
-        if (useDate == null) useDate = LocalDate.now();
-        return new ResponseEntity<>(restaurantService.getRestaurantWithDishesByDate(id, useDate), HttpStatus.OK);
+    @GetMapping("/name")
+    public ResponseEntity<List<Restaurant>> findByTitle(@RequestParam("name") String name) {
+        log.info("find restaurants by name ={}", name);
+        return new ResponseEntity<>(restaurantService.findByName(name), HttpStatus.OK);
     }
 }

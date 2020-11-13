@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 import topjava.graduation.model.Vote;
 
@@ -17,11 +18,11 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
     @Transactional
     Vote save(Vote vote);
 
-    Integer countAllByRestaurantIdAndDate(long restaurant_id, LocalDate date);
+    Integer countAllByRestaurantIdAndDate(long restaurant_id, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
 
     @Transactional(readOnly = true)
-    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId AND v.date=:date")
-    Optional<Vote> getTodayUserVote(@Param("user_id") long userId, @Param("date") LocalDate date);
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:user_id AND v.date=:date")
+    Optional<Vote> getTodayUserVote(@Param("user_id") long userId, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
 
     @Modifying
     @Transactional

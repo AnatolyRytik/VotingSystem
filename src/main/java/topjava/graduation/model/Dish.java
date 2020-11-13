@@ -36,11 +36,6 @@ public class Dish extends AbstractNamedEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    public Dish(Long id, LocalDate date, String name, Double price) {
-        super(id, name);
-        this.date = date;
-        this.price = price;
-    }
 
     public Dish(Long id, LocalDate date, String name, Double price, Restaurant restaurant) {
         super(id, name);

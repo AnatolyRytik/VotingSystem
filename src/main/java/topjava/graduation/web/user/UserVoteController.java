@@ -47,7 +47,7 @@ public class UserVoteController {
         return voteService.getTodayUserVote(userId, date).get();
     }
 
-    @GetMapping(value = "/{id}/votes/by-date")
+    @GetMapping(value = "/votes-by-date/{id}")
     public Integer getVotesCountByDate(@RequestParam(value = "date")
                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                        @PathVariable("id") long restaurantId) {
