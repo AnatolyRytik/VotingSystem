@@ -41,10 +41,10 @@ public class UserVoteController {
 
     @GetMapping
     public Vote getUserVoteForDate(
-            @RequestParam(value = "date", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+            @RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         int userId = SecurityUtil.authUserId();
         log.info("get vote for user with id ={}, day ={}", userId, date);
-        return voteService.getTodayUserVote(userId, date).get();
+        return voteService.getTodayUserVote(userId, date).orElse(null);
     }
 
     @GetMapping(value = "/votes-by-date/{id}")

@@ -16,13 +16,13 @@ import static topjava.graduation.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class DishService {
 
-    private static Logger log = LoggerFactory.getLogger(DishService.class);
+    private static final Logger log = LoggerFactory.getLogger(DishService.class);
 
     @Autowired
     private DishRepository dishRepository;
 
     public List<Dish> getAll() {
-        log.info("get all dishes {}");
+        log.info("get all dishes");
         return dishRepository.findAll();
     }
 

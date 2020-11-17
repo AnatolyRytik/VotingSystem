@@ -55,6 +55,9 @@ public class User extends AbstractNamedEntity {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
+    public User(Long id, String name) {
+        super(id, name);
+    }
 
     public User(User user) {
         this(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getRegistered(), user.getRoles());
@@ -70,7 +73,7 @@ public class User extends AbstractNamedEntity {
         this.password = password;
         this.enabled = enabled;
         this.registered = registered;
-        this.roles = roles;
+        setRoles(roles);
     }
 
     public void setRoles(Collection<Role> roles) {

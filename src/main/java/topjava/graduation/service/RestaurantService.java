@@ -17,7 +17,7 @@ import static topjava.graduation.util.ValidationUtil.checkNotFoundWithId;
 @Service
 @RequiredArgsConstructor
 public class RestaurantService {
-    private static Logger log = LoggerFactory.getLogger(RestaurantService.class);
+    private static final Logger log = LoggerFactory.getLogger(RestaurantService.class);
 
     @Autowired
     private final RestaurantRepository restaurantRepository;
@@ -37,10 +37,6 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    public List<Restaurant> getAllRestaurantsWithDishes() {
-        log.info("get all restaurants");
-        return restaurantRepository.getAllRestaurantsWithDishes();
-    }
 
     public void delete(long id) {
         log.info("delete restaurant with id {}", id);

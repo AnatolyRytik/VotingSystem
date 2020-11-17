@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class RestaurantAdminController {
-    private static Logger log = LoggerFactory.getLogger(RestaurantService.class);
+    private static final Logger log = LoggerFactory.getLogger(RestaurantService.class);
 
     public static final String REST_URL = "/rest/admin/restaurants";
 
@@ -29,7 +29,7 @@ public class RestaurantAdminController {
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> getAll() {
-        log.info("get all restaurants {}");
+        log.info("get all restaurants");
         return new ResponseEntity<>(restaurantService.getAll(), HttpStatus.OK);
     }
 

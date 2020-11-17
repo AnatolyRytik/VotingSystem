@@ -31,7 +31,7 @@ public class DishAdminController {
 
     @GetMapping
     public ResponseEntity<List<Dish>> getAll() {
-        log.info("get all dishes {}");
+        log.info("get all dishes");
         return new ResponseEntity<>(dishService.getAll(), HttpStatus.OK);
     }
 
