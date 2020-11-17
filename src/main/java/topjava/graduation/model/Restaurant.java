@@ -10,20 +10,23 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "restaurant")
+@Table(name = "restaurant", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "unique_restaurant_name_idx")})
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data
 public class Restaurant extends AbstractNamedEntity {
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @OrderBy("name DESC")
-    @JsonManagedReference(value = "restaurant")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
     private List<Dish> dishes;
 
 
     public Restaurant(Long id, String name) {
         super(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant [name=" + name +"]";
     }
 }

@@ -21,6 +21,14 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     List<Restaurant> findByName(String name);
 
     @Transactional
+    @Query("SELECT r FROM Restaurant r WHERE r.id=:id")
+    Restaurant getById (@Param("id") long id);
+
+    @Transactional
+    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishes ORDER BY r.name")
+    List<Restaurant> getAllRestaurantsWithDishes();
+
+    @Transactional
     @Override
     Restaurant save(Restaurant restaurant);
 

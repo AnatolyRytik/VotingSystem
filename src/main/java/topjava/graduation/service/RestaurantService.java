@@ -24,7 +24,7 @@ public class RestaurantService {
 
     public Restaurant getById(long id) throws NotFoundException {
         log.info("restaurant with id {}", id);
-        return checkNotFoundWithId(restaurantRepository.findById(id).orElse(null), id);
+        return checkNotFoundWithId(restaurantRepository.getById(id), id);
     }
 
     public List<Restaurant> findByName(String name) {
@@ -35,6 +35,11 @@ public class RestaurantService {
     public List<Restaurant> getAll() {
         log.info("get all restaurants");
         return restaurantRepository.findAll();
+    }
+
+    public List<Restaurant> getAllRestaurantsWithDishes() {
+        log.info("get all restaurants");
+        return restaurantRepository.getAllRestaurantsWithDishes();
     }
 
     public void delete(long id) {

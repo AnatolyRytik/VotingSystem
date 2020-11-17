@@ -19,7 +19,6 @@ CREATE TABLE users
 );
 
 
-
 CREATE TABLE user_roles
 (
     user_id BIGINT NOT NULL,
@@ -31,10 +30,10 @@ CREATE TABLE user_roles
 
 CREATE TABLE restaurant
 (
-    id   BIGINT DEFAULT global_seq.nextval PRIMARY KEY,
-    name VARCHAR(255)
+    id   BIGINT PRIMARY KEY,
+    name VARCHAR(255),
+    CONSTRAINT unique_restaurant_name_idx UNIQUE (name)
 );
-
 
 
 CREATE TABLE dishes
