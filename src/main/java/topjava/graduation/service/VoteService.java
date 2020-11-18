@@ -1,25 +1,27 @@
 package topjava.graduation.service;
 
-import java.time.LocalDate;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import topjava.graduation.model.Restaurant;
 import topjava.graduation.model.Vote;
 import topjava.graduation.repository.RestaurantRepository;
 import topjava.graduation.repository.UserRepository;
 import topjava.graduation.repository.VoteRepository;
-import topjava.graduation.to.VoteTo;
+import topjava.graduation.util.exception.DeadLineException;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Optional;
 
 
 @Service
 public class VoteService {
     private static final Logger log = LoggerFactory.getLogger(VoteService.class);
     private static final LocalDate TODAY = LocalDate.now();
+    private static final LocalTime TIME_LIMIT = LocalTime.parse("11:00");
     private final VoteRepository voteRepository;
     private final RestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
@@ -43,31 +45,25 @@ public class VoteService {
     }
 
     @Transactional
-    public VoteTo create(long userId, long restaurantId) {
-        Vote todayVote = getTodayUserVote(userId, TODAY).orElse(null);
-        if (todayVote != null) {
-            throw new DataIntegrityViolationException("");
+    public void createOrUpdateVote(final long restaurantId,
+                         final LocalTime time, final long userId) {
+        log.debug("Make user vote, restaurant id: {},current time {},  deadline is {}",
+                restaurantId, time, TIME_LIMIT);
+        Vote vote;
+        Restaurant restaurant = restaurantRepository.getById(restaurantId);
+        Optional<Vote> optionalVote = voteRepository.getTodayUserVote(userId, TODAY);
+        if (optionalVote.isPresent()) {
+            log.debug("User has already voted");
+            if (time.isAfter(TIME_LIMIT)) {
+                throw new DeadLineException("It is not possible to change your vote after 11.00 AM!");
+            }
+            Vote oldVote = optionalVote.get();
+            oldVote.setRestaurant(restaurant);
+            vote = oldVote;
+        } else {
+            log.debug("User's first vote for today");
+            vote = new Vote(userRepository.getOne(userId), restaurant, TODAY);
         }
-        Vote newVote = new Vote(userRepository.getOne(userId),
-                restaurantRepository.getOne(restaurantId), TODAY);
-        VoteTo voteTo = new VoteTo(newVote, true);
-        voteRepository.save(voteTo.getVote());
-        log.info("create vote{} ", voteTo);
-        return voteTo;
-    }
-
-    @Transactional
-    public VoteTo createOrUpdate(long userId, long restaurantId) {
-        Vote newVote = new Vote(userRepository.getOne(userId),
-                restaurantRepository.getOne(restaurantId), TODAY);
-        VoteTo todayVote = voteRepository.getTodayUserVote(userId, TODAY)
-                .map(v -> {
-                    v.setRestaurant(restaurantRepository.getOne(restaurantId));
-                    return new VoteTo(v, false);
-                })
-                .orElseGet(() -> new VoteTo(newVote, true));
-        voteRepository.save(todayVote.getVote());
-        log.info("update vote{}", todayVote);
-        return todayVote;
+        voteRepository.save(vote);
     }
 }

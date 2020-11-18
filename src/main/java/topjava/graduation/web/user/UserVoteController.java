@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import topjava.graduation.model.Restaurant;
 import topjava.graduation.model.Vote;
 import topjava.graduation.service.VoteService;
-import topjava.graduation.to.VoteTo;
 import topjava.graduation.web.SecurityUtil;
 
 import java.time.LocalDate;
@@ -23,20 +20,15 @@ import java.time.LocalTime;
 public class UserVoteController {
     private static final Logger log = LoggerFactory.getLogger(UserVoteController.class);
     public static final String REST_URL = "/rest/vote";
-    private static final LocalTime TIME_LIMIT = LocalTime.parse("11:00");
 
     @Autowired
     private VoteService voteService;
 
+    @ResponseStatus(value = HttpStatus.OK)
     @PostMapping(value = "/{id}")
-    public ResponseEntity<Restaurant> vote(@PathVariable("id") long restaurantId) {
+    public void vote(@PathVariable("id") long restaurantId) {
         long userId = SecurityUtil.authUserId();
-        boolean acceptVote = LocalTime.now().isBefore(TIME_LIMIT);
-        VoteTo newVote = acceptVote ? voteService.createOrUpdate(userId, restaurantId)
-                : voteService.create(userId, restaurantId);
-        log.info("user with {} id gave vote for restaurant {}", userId, restaurantId);
-        return new ResponseEntity<>(newVote.getVote().getRestaurant(),
-                newVote.isCreated() ? HttpStatus.CREATED : (acceptVote ? HttpStatus.OK : HttpStatus.CONFLICT));
+        voteService.createOrUpdateVote(restaurantId, LocalTime.now(), userId);
     }
 
     @GetMapping

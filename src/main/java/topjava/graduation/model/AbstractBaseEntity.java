@@ -1,6 +1,5 @@
 package topjava.graduation.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.util.ProxyUtils;
@@ -30,7 +29,6 @@ public abstract class AbstractBaseEntity implements Persistable<Long> {
         return id;
     }
 
-    @JsonIgnore
     @Override
     public boolean isNew() {
         return id == null;

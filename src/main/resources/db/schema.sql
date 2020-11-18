@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS restaurant;
 DROP SEQUENCE IF EXISTS global_seq;
 
-CREATE SEQUENCE global_seq START WITH 100000;
+CREATE SEQUENCE global_seq START WITH 1000;
 
 CREATE TABLE users
 (
@@ -30,7 +30,7 @@ CREATE TABLE user_roles
 
 CREATE TABLE restaurant
 (
-    id   BIGINT PRIMARY KEY,
+    id   BIGINT DEFAULT global_seq.nextval PRIMARY KEY,
     name VARCHAR(255),
     CONSTRAINT unique_restaurant_name_idx UNIQUE (name)
 );

@@ -28,8 +28,8 @@ public class RestaurantService {
     }
 
     public List<Restaurant> findByName(String name) {
-        log.info("find restaurants by title ={}", name);
-        return restaurantRepository.findByName(name);
+        log.info("find restaurants by name ={}", name);
+        return restaurantRepository.findByNameIgnoreCase(name);
     }
 
     public List<Restaurant> getAll() {
