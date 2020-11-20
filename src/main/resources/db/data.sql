@@ -10,9 +10,9 @@ DELETE
 FROM users;
 
 INSERT INTO users (id, name, email, password)
-VALUES (0, 'Admin', 'admin@gmail.com', 'adminpass'),
-       (1, 'UserOne', 'userone@yandex.ru', 'useronepass'),
-       (2, 'UserTwo', 'usertwo@yandex.ru', 'usertwoopass');
+VALUES (0, 'Admin', 'admin@gmail.com', '{noop}adminpass'),
+       (1, 'UserOne', 'userone@yandex.ru', '{noop}useronepass'),
+       (2, 'UserTwo', 'usertwo@yandex.ru', '{noop}usertwoopass');
 
 INSERT INTO user_roles (user_id, role)
 VALUES (0, 'ROLE_ADMIN'),
