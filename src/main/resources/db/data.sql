@@ -36,4 +36,4 @@ VALUES (0, today(), 'Bigmac', 300, 0),
 
 INSERT INTO vote_restaurant (id, user_id, restaurant_id, date)
 VALUES (0, 0, 1,today()),
-       (1, 1, 2, today());
+       (1, 1, 2, '2020-11-24');

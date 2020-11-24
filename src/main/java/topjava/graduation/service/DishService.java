@@ -42,8 +42,14 @@ public class DishService {
         return dishRepository.save(newDish);
     }
 
-    public void update(Dish newDish, long id) throws NotFoundException {
+    public Dish update(Dish newDish, long id) throws NotFoundException {
         log.info("update dish {} with id {}", newDish, id);
-        checkNotFoundWithId(dishRepository.save(newDish), id);
+        Assert.notNull(newDish, "dish must not be null");
+        Dish dish = getById(id);
+        dish.setName(newDish.getName());
+        dish.setPrice(newDish.getPrice());
+        dish.setDate(newDish.getDate());
+        dish.setRestaurant(newDish.getRestaurant());
+        return dishRepository.save(dish);
     }
 }

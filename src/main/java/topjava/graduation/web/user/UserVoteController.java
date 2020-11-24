@@ -26,7 +26,7 @@ public class UserVoteController {
     private VoteService voteService;
 
     @ResponseStatus(value = HttpStatus.OK)
-    @PostMapping(value = "/{id}/vote")
+    @PostMapping(value = "/{id}")
     public void vote(@PathVariable("id") long restaurantId, @AuthenticationPrincipal AuthUser authUser) {
         long userId = authUser.id();
         log.info("vote of user with id ={}", userId);

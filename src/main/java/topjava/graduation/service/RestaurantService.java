@@ -43,10 +43,12 @@ public class RestaurantService {
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
-    public void update(Restaurant restaurant, long id) {
+    public Restaurant update(Restaurant restaurant, long id) {
         log.info("update restaurant {} with id {}", restaurant, id);
         Assert.notNull(restaurant, "restaurant must not be null");
-        checkNotFoundWithId(restaurantRepository.save(restaurant), id);
+        Restaurant rest = getById(id);
+        rest.setName(restaurant.getName());
+        return restaurantRepository.save(rest);
     }
 
     public Restaurant create(Restaurant restaurant) {

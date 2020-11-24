@@ -34,7 +34,7 @@ public class RootController {
 
     @GetMapping("/name")
     public ResponseEntity<List<Restaurant>> findByName(@RequestParam("name") String name) {
-        log.info("find restaurants by name ={}", name);
+        log.info("find restaurant by name ={}", name);
         return new ResponseEntity<>(restaurantService.findByName(name), HttpStatus.OK);
     }
 }
