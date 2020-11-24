@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/**/restaurants/**").permitAll()
-                .antMatchers("/rest/admin/**").hasRole(Role.ROLE_ADMIN.name())
+                .antMatchers("/rest/admin/**").hasRole(Role.ADMIN.name())
                 .antMatchers("/rest/**").authenticated()
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

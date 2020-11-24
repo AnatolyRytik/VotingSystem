@@ -15,23 +15,25 @@ VALUES (0, 'Admin', 'admin@gmail.com', '{noop}adminpass'),
        (2, 'UserTwo', 'usertwo@yandex.ru', '{noop}usertwoopass');
 
 INSERT INTO user_roles (user_id, role)
-VALUES (0, 'ROLE_ADMIN'),
-       (1, 'ROLE_USER'),
-       (2, 'ROLE_USER');
+VALUES (0, 'ADMIN'),
+       (0, 'USER'),
+       (1, 'USER'),
+       (2, 'USER');
 
 
 INSERT INTO restaurant (id, name)
-VALUES (0, 'Mac'),
-       (1, 'Pelmeni'),
-       (2, 'SushiVesla');
+VALUES (0, 'MacDonalds'),
+       (1, 'KFC'),
+       (2, 'Burger King');
 
 INSERT INTO dishes (id, date, name, price, restaurant_id)
-VALUES (0, today(), 'bigmac', 300, 0),
+VALUES (0, today(), 'Bigmac', 300, 0),
        (1, today(), 'Coca cola', 100, 0),
-       (2, today(), 'fries', 100, 0),
-       (3, '2020-10-25', 'Pelmeni', 400, 1),
-       (4, '2020-10-25', 'Sushi', 500, 2);
+       (2, today(), 'Chicken nuggets', 150, 1),
+       (3, '2020-11-17', 'Chicken wings', 270, 1),
+       (4, '2020-11-18', 'Cheeseburger', 110, 2),
+       (5, today(), 'Double cheeseburger', 150, 2);
 
-INSERT INTO vote_restaurant (id, date, restaurant_id, user_id)
-VALUES (0, '2020-10-25', 0, 1),
-       (1, '2017-05-20', 1, 2);
+INSERT INTO vote_restaurant (id, user_id, restaurant_id, date)
+VALUES (0, 0, 1,today()),
+       (1, 1, 2, today());
