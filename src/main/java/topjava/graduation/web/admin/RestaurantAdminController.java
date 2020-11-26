@@ -13,6 +13,7 @@ import topjava.graduation.model.Restaurant;
 import topjava.graduation.service.RestaurantService;
 import topjava.graduation.util.exception.NotFoundException;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class RestaurantAdminController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
+    public ResponseEntity<Restaurant> create(@Valid @RequestBody Restaurant restaurant) {
         log.info("create restaurant {}", restaurant);
         Restaurant created = restaurantService.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -59,7 +60,7 @@ public class RestaurantAdminController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Restaurant update(@RequestBody Restaurant newRestaurant, @PathVariable("id") int id) throws NotFoundException {
+    public Restaurant update(@Valid @RequestBody Restaurant newRestaurant, @PathVariable("id") int id) throws NotFoundException {
         log.info("update restaurant{} with id {}", newRestaurant, id);
         return restaurantService.update(newRestaurant, id);
     }

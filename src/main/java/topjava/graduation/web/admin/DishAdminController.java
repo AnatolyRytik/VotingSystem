@@ -13,6 +13,7 @@ import topjava.graduation.model.Dish;
 import topjava.graduation.service.DishService;
 import topjava.graduation.util.exception.NotFoundException;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class DishAdminController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Dish> create(@RequestBody Dish dish, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Dish> create(@Valid @RequestBody Dish dish, UriComponentsBuilder ucBuilder) {
         log.info("create dish {}", dish);
         Dish created = dishService.create(dish);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -58,7 +59,7 @@ public class DishAdminController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Dish update(@RequestBody Dish newDish, @PathVariable("id") long id) throws NotFoundException {
+    public Dish update(@Valid @RequestBody Dish newDish, @PathVariable("id") long id) throws NotFoundException {
         log.info("update dish {} with id {}", newDish, id);
         return dishService.update(newDish, id);
     }
