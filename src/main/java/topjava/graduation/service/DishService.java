@@ -50,6 +50,6 @@ public class DishService {
         dish.setPrice(newDish.getPrice());
         dish.setDate(newDish.getDate());
         dish.setRestaurant(newDish.getRestaurant());
-        return dishRepository.save(dish);
+        return checkNotFoundWithId(dishRepository.save(dish), id);
     }
 }

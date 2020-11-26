@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import topjava.graduation.model.Dish;
 import topjava.graduation.service.DishService;
-import topjava.graduation.service.RestaurantService;
 import topjava.graduation.util.exception.NotFoundException;
 
 import java.net.URI;
@@ -25,9 +24,6 @@ public class DishAdminController {
 
     @Autowired
     private DishService dishService;
-
-    @Autowired
-    private RestaurantService restaurantService;
 
     @GetMapping
     public ResponseEntity<List<Dish>> getAll() {
