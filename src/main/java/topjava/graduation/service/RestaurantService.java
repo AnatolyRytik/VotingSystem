@@ -11,6 +11,7 @@ import topjava.graduation.repository.RestaurantRepository;
 import topjava.graduation.util.exception.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static topjava.graduation.util.ValidationUtil.checkNotFoundWithId;
 
@@ -24,10 +25,10 @@ public class RestaurantService {
 
     public Restaurant getById(long id) throws NotFoundException {
         log.info("restaurant with id {}", id);
-        return checkNotFoundWithId(restaurantRepository.getById(id), id);
+        return checkNotFoundWithId(restaurantRepository.findById(id).orElse(null), id);
     }
 
-    public List<Restaurant> findByName(String name) {
+    public Optional<Restaurant> findByName(String name) {
         log.info("find restaurants by name ={}", name);
         return restaurantRepository.findByNameIgnoreCase(name);
     }
@@ -38,17 +39,17 @@ public class RestaurantService {
     }
 
 
-    public void delete(long id) {
+    public void delete(long id) throws NotFoundException {
         log.info("delete restaurant with id {}", id);
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
-    public Restaurant update(Restaurant restaurant, long id) {
+    public Restaurant update(Restaurant restaurant, long id) throws NotFoundException {
         log.info("update restaurant {} with id {}", restaurant, id);
         Assert.notNull(restaurant, "restaurant must not be null");
         Restaurant rest = getById(id);
         rest.setName(restaurant.getName());
-        return restaurantRepository.save(rest);
+        return checkNotFoundWithId(restaurantRepository.save(rest), id);
     }
 
     public Restaurant create(Restaurant restaurant) {

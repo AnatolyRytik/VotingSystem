@@ -21,10 +21,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class RestaurantAdminController {
-    private static final Logger log = LoggerFactory.getLogger(RestaurantService.class);
-
     public static final String REST_URL = "/rest/admin/restaurants";
-
+    private static final Logger log = LoggerFactory.getLogger(RestaurantService.class);
     @Autowired
     private RestaurantService restaurantService;
 
@@ -36,7 +34,7 @@ public class RestaurantAdminController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") long id) {
+    public void delete(@PathVariable("id") long id) throws NotFoundException {
         log.info("delete restaurant by id {}", id);
         restaurantService.delete(id);
     }
@@ -53,7 +51,7 @@ public class RestaurantAdminController {
     }
 
     @GetMapping("/{id}")
-    public Restaurant getById(@PathVariable("id") long id) {
+    public Restaurant getById(@PathVariable("id") long id) throws NotFoundException {
         log.info("get restaurant by id: {}", id);
         return restaurantService.getById(id);
     }
