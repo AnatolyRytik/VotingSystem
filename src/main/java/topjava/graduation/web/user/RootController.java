@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import topjava.graduation.model.Restaurant;
 import topjava.graduation.service.RestaurantService;
+import topjava.graduation.util.exception.NotFoundException;
 
 import java.util.List;
 
@@ -19,10 +20,8 @@ import java.util.List;
 @RestController
 public class RootController {
 
-    private static final Logger log = LoggerFactory.getLogger(RestaurantService.class);
-
     public static final String REST_URL = "/rest/restaurants";
-
+    private static final Logger log = LoggerFactory.getLogger(RestaurantService.class);
     @Autowired
     private RestaurantService restaurantService;
 
@@ -33,8 +32,9 @@ public class RootController {
     }
 
     @GetMapping("/name")
-    public ResponseEntity<List<Restaurant>> findByName(@RequestParam("name") String name) {
+    public Restaurant findByName(@RequestParam("name") String name) {
         log.info("find restaurant by name ={}", name);
-        return new ResponseEntity<>(restaurantService.findByName(name), HttpStatus.OK);
+        return restaurantService.findByName(name).orElseThrow(() -> new NotFoundException(
+                String.format("Restaurant with name %s not found", name)));
     }
 }
