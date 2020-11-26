@@ -22,7 +22,7 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 
     @Transactional(readOnly = true)
     @Query("SELECT v FROM Vote v WHERE v.user.id=:user_id AND v.date=:date")
-    Optional<Vote> getTodayUserVote(@Param("user_id") long userId, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
+    Optional<Vote> getUserVoteForDate(@Param("user_id") long userId, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
 
     @Modifying
     @Transactional

@@ -39,19 +39,19 @@ public class VoteService {
         return voteRepository.countAllByRestaurantIdAndDate(restaurantId, date);
     }
 
-    public Optional<Vote> getTodayUserVote(long userId, LocalDate date) {
+    public Optional<Vote> getUserVoteForDate(long userId, LocalDate date) {
         log.info("get user with id ={} today={} vote", userId, date);
-        return voteRepository.getTodayUserVote(userId, date);
+        return voteRepository.getUserVoteForDate(userId, date);
     }
 
     @Transactional
     public void createOrUpdateVote(final long restaurantId,
-                         final LocalTime time, final long userId) {
+                                   final LocalTime time, final long userId) {
         log.debug("Make user vote, restaurant id: {},current time {},  deadline is {}",
                 restaurantId, time, TIME_LIMIT);
         Vote vote;
         Restaurant restaurant = restaurantRepository.getById(restaurantId);
-        Optional<Vote> optionalVote = voteRepository.getTodayUserVote(userId, TODAY);
+        Optional<Vote> optionalVote = voteRepository.getUserVoteForDate(userId, TODAY);
         if (optionalVote.isPresent()) {
             log.debug("User has already voted");
             if (time.isAfter(TIME_LIMIT)) {

@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import topjava.graduation.model.Vote;
 import topjava.graduation.service.VoteService;
+import topjava.graduation.util.exception.NotFoundException;
 import topjava.graduation.web.AuthUser;
 
 import java.time.LocalDate;
@@ -19,9 +20,8 @@ import java.time.LocalTime;
 @RestController
 @RequestMapping(value = UserVoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserVoteController {
-    private static final Logger log = LoggerFactory.getLogger(UserVoteController.class);
     public static final String REST_URL = "/rest/vote";
-
+    private static final Logger log = LoggerFactory.getLogger(UserVoteController.class);
     @Autowired
     private VoteService voteService;
 
@@ -39,7 +39,8 @@ public class UserVoteController {
             @AuthenticationPrincipal AuthUser authUser) {
         long userId = authUser.id();
         log.info("get vote for user with id ={}, day ={}", userId, date);
-        return voteService.getTodayUserVote(userId, date).orElse(null);
+        return voteService.getUserVoteForDate(userId, date).orElseThrow(() -> new NotFoundException(
+                ("Vote not found")));
     }
 
     @GetMapping(value = "/votes-by-date/{id}")
