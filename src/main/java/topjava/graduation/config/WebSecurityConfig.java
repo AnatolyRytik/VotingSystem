@@ -2,7 +2,8 @@ package topjava.graduation.config;
 
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,11 +27,11 @@ import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
-@Slf4j
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    private final Logger log = LoggerFactory.getLogger(WebSecurityConfig.class);
     private final UserRepository userRepository;
 
     @Bean
@@ -53,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .and().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/**/restaurants/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/**/restaurants/**").authenticated()
                 .antMatchers("/rest/admin/**").hasRole(Role.ADMIN.name())
                 .antMatchers("/rest/**").authenticated()
                 .and().httpBasic()
