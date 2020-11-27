@@ -1,3 +1,6 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d17a322bdefb4925b634d46354985ad9)](https://www.codacy.com/gh/AnatolyRytik/VotingSystem/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AnatolyRytik/VotingSystem&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/AnatolyRytik/VotingSystem.svg?branch=master)](https://travis-ci.org/AnatolyRytik/VotingSystem)
+
 Description
 ------------
 Task: Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.

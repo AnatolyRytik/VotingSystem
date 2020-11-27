@@ -89,7 +89,7 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        Restaurant returned = TestUtil.readFromJson(action, Restaurant.class);
+        Restaurant returned = readFromJson(action, Restaurant.class);
 
         RESTAURANT_MATCHER.assertMatch(returned, expected);
         RESTAURANT_MATCHER.assertMatch(restaurantService.getById(RES_ID), expected);
