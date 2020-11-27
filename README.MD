@@ -1,5 +1,8 @@
 Description
 ------------
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d5f9d8b9e1774ef297847942f7b86728)](https://app.codacy.com/gh/AnatolyRytik/VotingSystem?utm_source=github.com&utm_medium=referral&utm_content=AnatolyRytik/VotingSystem&utm_campaign=Badge_Grade)
+
 Task: Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
 
  * 2 types of users: admin and regular users
