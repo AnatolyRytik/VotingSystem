@@ -30,9 +30,9 @@ INSERT INTO dishes (id, date, name, price, restaurant_id)
 VALUES (0, today(), 'Bigmac', 300, 0),
        (1, today(), 'Coca cola', 100, 0),
        (2, today(), 'Chicken nuggets', 150, 1),
-       (3, '2020-11-17', 'Chicken wings', 270, 1),
+       (3, today(), 'Chicken wings', 270, 1),
        (4, '2020-11-18', 'Cheeseburger', 110, 2),
-       (5, today(), 'Double cheeseburger', 150, 2);
+       (5, '2020-11-18', 'Double cheeseburger', 150, 2);
 
 INSERT INTO vote_restaurant (id, user_id, restaurant_id, date)
 VALUES (0, 0, 1,today()),

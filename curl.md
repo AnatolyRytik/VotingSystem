@@ -71,3 +71,7 @@
 #####GET restaurant by name:
 
 `curl -s http://localhost:8080/rest/restaurants/name?name=kfc --user userone@yandex.ru:useronepass`
+
+#####GET list of restaurants with dishes for today:
+
+`curl -s http://localhost:8080/rest/restaurants/list --user userone@yandex.ru:useronepass`

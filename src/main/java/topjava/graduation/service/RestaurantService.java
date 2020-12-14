@@ -10,6 +10,7 @@ import topjava.graduation.model.Restaurant;
 import topjava.graduation.repository.RestaurantRepository;
 import topjava.graduation.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +57,10 @@ public class RestaurantService {
         log.info("create restaurant {}", restaurant);
         Assert.notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);
+    }
+
+    public List<Restaurant> getAllTodayRestaurantsWithDishes(LocalDate date) {
+        log.info("get list of restaurants with dishes for today");
+        return restaurantRepository.getAllTodayRestaurantsWithDishes(date);
     }
 }

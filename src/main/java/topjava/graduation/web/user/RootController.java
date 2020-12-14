@@ -3,6 +3,7 @@ package topjava.graduation.web.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import topjava.graduation.model.Restaurant;
 import topjava.graduation.service.RestaurantService;
 import topjava.graduation.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping(value = RootController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,5 +38,11 @@ public class RootController {
         log.info("find restaurant by name ={}", name);
         return restaurantService.findByName(name).orElseThrow(() -> new NotFoundException(
                 String.format("Restaurant with name %s not found", name)));
+    }
+
+    @GetMapping("/list")
+    public List<Restaurant> getAllWithDishesByDate() {
+        log.info("list of restaurants with dishes for today");
+            return restaurantService.getAllTodayRestaurantsWithDishes(LocalDate.now());
     }
 }

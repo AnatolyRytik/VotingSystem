@@ -13,11 +13,11 @@ public class RestaurantTestData {
     public static final Restaurant RESTAURANT_1 = new Restaurant(RES_ID + 1, "KFC");
     public static final Restaurant RESTAURANT_2 = new Restaurant(RES_ID + 2, "Burger King");
     public static final List<Restaurant> RESTAURANTS = Arrays.asList(RESTAURANT_0, RESTAURANT_1, RESTAURANT_2);
+    public static final List<Restaurant> TODAY_RESTAURANTS = Arrays.asList(RESTAURANT_0, RESTAURANT_1);
     public static TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Restaurant.class, "dishes");
 
     public static Restaurant getUpdated() {
-        Restaurant updated = new Restaurant(RES_ID, "UpdatedName");
-        return updated;
+        return new Restaurant(RES_ID, "UpdatedName");
     }
 
     public static Restaurant getCreated() {

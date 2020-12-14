@@ -3,21 +3,24 @@ package topjava.graduation.web.user;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
+import topjava.graduation.TestUtil;
+import topjava.graduation.model.Restaurant;
 import topjava.graduation.service.RestaurantService;
 import topjava.graduation.service.UserServiceSecurity;
 import topjava.graduation.web.AbstractControllerTest;
 import topjava.graduation.web.json.JsonUtil;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static topjava.graduation.TestUtil.contentJson;
-import static topjava.graduation.TestUtil.userAuth;
-import static topjava.graduation.testdata.RestaurantTestData.RESTAURANTS;
-import static topjava.graduation.testdata.RestaurantTestData.RESTAURANT_2;
-import static topjava.graduation.testdata.UserTestData.USER_0;
-import static topjava.graduation.testdata.UserTestData.USER_1;
+import static topjava.graduation.TestUtil.*;
+import static topjava.graduation.testdata.DishTestData.DISH_ID;
+import static topjava.graduation.testdata.DishTestData.DISH_MATCHER;
+import static topjava.graduation.testdata.RestaurantTestData.*;
+import static topjava.graduation.testdata.UserTestData.*;
 
 
 class RootControllerTest extends AbstractControllerTest {
@@ -53,5 +56,15 @@ class RootControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(contentJson(RESTAURANT_2));
+    }
+
+    @Test
+    void getAllTodayRestaurantsWithDishes() throws Exception {
+        mockMvc.perform(get(REST_URL + "list")
+                .with(userAuth(USER_1))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(contentJson(TODAY_RESTAURANTS));
     }
 }

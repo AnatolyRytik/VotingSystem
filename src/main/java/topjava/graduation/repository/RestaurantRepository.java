@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import topjava.graduation.model.Restaurant;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,4 +34,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     @Override
     Restaurant save(Restaurant restaurant);
 
+    @Transactional
+    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishes d WHERE d.date = ?1 ORDER BY r.name")
+    List<Restaurant> getAllTodayRestaurantsWithDishes(LocalDate date);
 }
