@@ -58,3 +58,4 @@ $ mvn spring-boot:run
 
 ##### Testing
 * Postman - https://documenter.getpostman.com/view/13502788/TVmHDzHv
+* Curl commands - curl.md (https://github.com/AnatolyRytik/VotingSystem/blob/master/curl.md)
