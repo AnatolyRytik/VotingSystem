@@ -20,7 +20,7 @@ import java.time.LocalTime;
 @RestController
 @RequestMapping(value = UserVoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserVoteController {
-    public static final String REST_URL = "/rest/vote";
+    public static final String REST_URL = "/rest/votes";
     private static final Logger log = LoggerFactory.getLogger(UserVoteController.class);
     @Autowired
     private VoteService voteService;

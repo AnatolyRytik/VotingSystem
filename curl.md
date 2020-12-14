@@ -54,11 +54,11 @@
 
 
 #####GET user vote for date:
-`curl -s http://localhost:8080/rest/vote?date=2020-11-24 --user userone@yandex.ru:useronepass`
+`curl -s http://localhost:8080/rest/votes?date=2020-11-24 --user userone@yandex.ru:useronepass`
 
 #####GET votes for restaurant with id 1:
 
-`curl -s http://localhost:8080/rest/vote/votes-by-date/1?date=2020-11-24 --user userone@yandex.ru:useronepass`
+`curl -s http://localhost:8080/rest/votes/votes-by-date/?date=2020-11-24&id=2 --user userone@yandex.ru:useronepass`
 
 #####GET all restaurants:
 
@@ -66,7 +66,7 @@
 
 #####CREATE(UPDATE) vote for restaurant with id 2:
 
-`curl -s -X POST -d ' {"restaurant_id": 2"} ' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/rest/vote/2 --user userone@yandex.ru:useronepass`
+`curl -s -X POST -d ' {"restaurant_id": 2"} ' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/rest/votes/2 --user userone@yandex.ru:useronepass`
 
 #####GET restaurant by name:
 
