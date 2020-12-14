@@ -43,10 +43,10 @@ public class UserVoteController {
                 ("Vote not found")));
     }
 
-    @GetMapping(value = "/votes-by-date/{id}")
+    @GetMapping(value = "/votes-by-date")
     public Integer getVotesCountByDate(@RequestParam(value = "date")
                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-                                       @PathVariable("id") long restaurantId) {
+                                       @RequestParam("id") long restaurantId) {
         log.info("get votes for restaurant with id ={} by date ={}", restaurantId, date);
         return voteService.getVotesCountByDate(restaurantId, date);
     }
