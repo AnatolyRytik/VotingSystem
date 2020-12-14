@@ -27,8 +27,9 @@ class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     void testGetVotesCountByDate() throws Exception {
-        mockMvc.perform(get(REST_URL + "votes-by-date/" + (RES_ID + 2))
+        mockMvc.perform(get(REST_URL + "votes-by-date")
                 .param("date", "2020-11-24")
+                .param("id","2")
                 .with(userHttpBasic(USER_0)))
                 .andDo(print())
                 .andExpect(status().isOk())
