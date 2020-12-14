@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "restaurant_id_name_idx")})
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "dish_name_idx")})
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class Dish extends AbstractNamedEntity {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
-    @Column(name = "date", nullable = false)
+    @Column(name = "date_time", nullable = false)
     private LocalDate date;
 
     @NotNull

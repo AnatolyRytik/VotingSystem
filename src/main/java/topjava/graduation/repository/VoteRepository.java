@@ -21,8 +21,8 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
     Integer countAllByRestaurantIdAndDate(long restaurant_id, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
 
     @Transactional(readOnly = true)
-    @Query("SELECT v FROM Vote v WHERE v.user.id=:user_id AND v.date=:date")
-    Optional<Vote> getUserVoteForDate(@Param("user_id") long userId, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:user_id AND v.date=:date_time")
+    Optional<Vote> getUserVoteForDate(@Param("user_id") long userId, @Param("date_time") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
 
     @Modifying
     @Transactional
