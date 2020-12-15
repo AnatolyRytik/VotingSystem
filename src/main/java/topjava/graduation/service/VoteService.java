@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import topjava.graduation.model.Restaurant;
 import topjava.graduation.model.Vote;
 import topjava.graduation.repository.RestaurantRepository;
 import topjava.graduation.repository.UserRepository;
@@ -20,7 +19,6 @@ import java.util.Optional;
 @Service
 public class VoteService {
     private static final Logger log = LoggerFactory.getLogger(VoteService.class);
-    private static final LocalDate TODAY = LocalDate.now();
     private static final LocalTime TIME_LIMIT = LocalTime.parse("11:00");
     private final VoteRepository voteRepository;
     private final RestaurantRepository restaurantRepository;
@@ -41,7 +39,7 @@ public class VoteService {
 
     public Optional<Vote> getUserVoteForDate(long userId, LocalDate date) {
         log.info("get user with id ={} today={} vote", userId, date);
-        return voteRepository.getUserVoteForDate(userId, date);
+        return voteRepository.getByUserIdAndDate(userId, date);
     }
 
     @Transactional
@@ -50,19 +48,18 @@ public class VoteService {
         log.debug("Make user vote, restaurant id: {},current time {},  deadline is {}",
                 restaurantId, time, TIME_LIMIT);
         Vote vote;
-        Restaurant restaurant = restaurantRepository.getById(restaurantId);
-        Optional<Vote> optionalVote = voteRepository.getUserVoteForDate(userId, TODAY);
+        Optional<Vote> optionalVote = voteRepository.getByUserIdAndDate(userId, LocalDate.now());
         if (optionalVote.isPresent()) {
-            log.debug("User has already voted");
+            log.info("User has already voted");
             if (time.isAfter(TIME_LIMIT)) {
-                throw new DeadLineException("It is not possible to change your vote after 11.00 AM!");
+                throw new DeadLineException("Time to make vote expired!");
             }
             Vote oldVote = optionalVote.get();
-            oldVote.setRestaurant(restaurant);
+            oldVote.setRestaurantId(restaurantId);
             vote = oldVote;
         } else {
             log.debug("User's first vote for today");
-            vote = new Vote(userRepository.getOne(userId), restaurant, TODAY);
+            vote = new Vote(userId, restaurantId, LocalDate.now());
         }
         voteRepository.save(vote);
     }

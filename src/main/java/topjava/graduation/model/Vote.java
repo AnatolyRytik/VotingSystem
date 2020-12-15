@@ -20,26 +20,26 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Vote extends AbstractBaseEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "user_id", nullable = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private User user;
+    private Long userId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "restaurant_id", nullable = false)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Restaurant restaurant;
+    private Long restaurantId;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "date_time", unique = true)
     @NotNull
     private LocalDate date;
 
-    public Vote(User user, Restaurant restaurant, LocalDate date) {
-        this.user = user;
-        this.restaurant = restaurant;
+    public Vote(Long userId, Long restaurantId, @NotNull LocalDate date) {
+        this.userId = userId;
+        this.restaurantId = restaurantId;
         this.date = date;
     }
 }
