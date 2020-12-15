@@ -1,18 +1,18 @@
 package topjava.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "restaurant", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "unique_restaurant_name_idx")})
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = "dishes")
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Restaurant extends AbstractNamedEntity {
 
     @JsonManagedReference
@@ -22,10 +22,5 @@ public class Restaurant extends AbstractNamedEntity {
 
     public Restaurant(Long id, String name) {
         super(id, name);
-    }
-
-    @Override
-    public String toString() {
-        return "Restaurant [name=" + name +"]";
     }
 }

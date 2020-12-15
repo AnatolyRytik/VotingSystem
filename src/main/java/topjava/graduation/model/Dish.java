@@ -1,10 +1,7 @@
 package topjava.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,8 +12,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "dish_name_idx")})
-@Data
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = {"restaurant"})
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dish extends AbstractNamedEntity {
@@ -30,7 +28,6 @@ public class Dish extends AbstractNamedEntity {
     @NotNull
     @Column(name = "price", nullable = false)
     private Double price;
-
 
     @JsonBackReference
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -48,16 +45,5 @@ public class Dish extends AbstractNamedEntity {
 
     public Dish(Dish dish) {
         this(dish.getId(), dish.getDate(), dish.getName(), dish.getPrice(), dish.getRestaurant());
-    }
-
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "id=" + id +
-                ", name=" + name +
-                ", date=" + date +
-                ", price=" + price +
-                ", restaurant=" + restaurant +
-                '}';
     }
 }

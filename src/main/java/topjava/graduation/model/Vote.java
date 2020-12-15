@@ -1,9 +1,9 @@
 package topjava.graduation.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,10 +14,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "user_vote_date_idx")})
-@Data
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Vote extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -25,7 +25,6 @@ public class Vote extends AbstractBaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private User user;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -38,9 +37,7 @@ public class Vote extends AbstractBaseEntity {
     @NotNull
     private LocalDate date;
 
-
-    public Vote(Long id, User user, Restaurant restaurant, LocalDate date) {
-        super(id);
+    public Vote(User user, Restaurant restaurant, LocalDate date) {
         this.user = user;
         this.restaurant = restaurant;
         this.date = date;
