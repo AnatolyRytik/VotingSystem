@@ -11,7 +11,6 @@ import topjava.graduation.model.Dish;
 @Transactional(readOnly = true)
 public interface DishRepository extends JpaRepository<Dish, Long> {
 
-
     @Transactional
     @Modifying
     @Query("DELETE FROM Dish d WHERE d.id=:id")

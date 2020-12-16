@@ -12,7 +12,6 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Transactional(readOnly = true)
     Optional<User> findByEmailIgnoreCase(String email);
 
     @Transactional

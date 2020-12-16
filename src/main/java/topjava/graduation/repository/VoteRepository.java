@@ -15,6 +15,7 @@ import java.util.Optional;
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
     @Override
+    @Transactional
     Vote save(Vote vote);
 
     Integer countAllByRestaurantIdAndDate(long restaurant_id, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
@@ -22,6 +23,7 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
     Optional<Vote> getByUserIdAndDate(Long id, LocalDate date);
 
     @Modifying
+    @Transactional
     @Query("DELETE FROM Vote v WHERE v.id=:id")
     int delete(@Param("id") long id);
 }
