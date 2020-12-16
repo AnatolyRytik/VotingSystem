@@ -16,7 +16,7 @@
  
 #####DELETE restaurant with id 0:
  
- `curl -s -X DELETE http://localhost:8080/rest/admin/restaurants/0 --user admin@gmail.com:adminpass`
+     `curl -s -X DELETE http://localhost:8080/rest/admin/restaurants/0 --user admin@gmail.com:adminpass`
  
 #####CREATE restaurant:
 
@@ -60,9 +60,6 @@
 
 `curl -s http://localhost:8080/rest/votes/votes-by-date/?date=2020-11-24&id=2 --user userone@yandex.ru:useronepass`
 
-#####GET all restaurants:
-
-`curl -s http://localhost:8080/rest/restaurants/dishes --user userone@yandex.ru:useronepass`
 
 #####CREATE(UPDATE) vote for restaurant with id 2:
 

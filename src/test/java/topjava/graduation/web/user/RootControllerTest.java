@@ -38,15 +38,6 @@ class RootControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
-    void getAll() throws Exception {
-        mockMvc.perform(get(REST_URL)
-                .with(userAuth(USER_0))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json(JsonUtil.writeValue(RESTAURANTS)))
-                .andDo(print());
-    }
 
     @Test
     void findByName() throws Exception {
