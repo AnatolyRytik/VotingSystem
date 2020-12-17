@@ -2,8 +2,8 @@ package topjava.graduation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
+import topjava.graduation.HasId;
 
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public abstract class AbstractBaseEntity implements Persistable<Long> {
+public abstract class AbstractBaseEntity implements HasId {
     public static final int START_SEQ = 1000;
 
     @Id

@@ -43,11 +43,11 @@
  
 #####CREATE dish:
 
-`curl -s -X POST -d '{"date":"2020-11-20","name": "Pepsi","price": 150,"restaurant": {"id": 1, "name": "KFC"}}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/rest/admin/dishes --user admin@gmail.com:adminpass`
+`curl -s -X POST -d '{"date":"2020-11-20","name": "Pepsi","price": 150,"restaurantId": 1}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/rest/admin/dishes --user admin@gmail.com:adminpass`
 
 #####UPDATE dish:
 
-`curl -s -X PUT -d '{"id": 3, "date":"2020-11-10", "name":"Chicken burger", "price": 180, "restaurant" : {"id": 1, "name": "KFC"}}' -H 'Content-Type: application/json' http://localhost:8080/rest/admin/dishes/3 --user admin@gmail.com:adminpass`
+`curl -s -X PUT -d '{"id": 3, "date":"2020-11-10", "name":"Chicken burger", "price": 180, "restaurantId" : 1}' -H 'Content-Type: application/json' http://localhost:8080/rest/admin/dishes/3 --user admin@gmail.com:adminpass`
 
 
 ##User:

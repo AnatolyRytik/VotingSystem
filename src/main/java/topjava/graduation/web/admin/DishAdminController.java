@@ -8,14 +8,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 import topjava.graduation.model.Dish;
+import topjava.graduation.model.Restaurant;
 import topjava.graduation.service.DishService;
+import topjava.graduation.service.RestaurantService;
+import topjava.graduation.to.DishTo;
 import topjava.graduation.util.exception.NotFoundException;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import static topjava.graduation.util.ValidationUtil.assureIdConsistent;
 
 @RestController
 @RequestMapping(value = DishAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,6 +29,9 @@ public class DishAdminController {
 
     @Autowired
     private DishService dishService;
+
+    @Autowired
+    private RestaurantService restaurantService;
 
     @GetMapping
     public ResponseEntity<List<Dish>> getAll() {
@@ -47,8 +54,10 @@ public class DishAdminController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Dish> create(@Valid @RequestBody Dish dish, UriComponentsBuilder ucBuilder) {
-        log.info("create dish {}", dish);
+    public ResponseEntity<Dish> create(@Valid @RequestBody DishTo dishTo) {
+        log.info("create dish {}", dishTo);
+        Restaurant restaurant = restaurantService.getById(dishTo.getRestaurantId());
+        Dish dish = new Dish(dishTo.getName(), dishTo.getPrice(), restaurant, dishTo.getDate());
         Dish created = dishService.create(dish);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -59,8 +68,11 @@ public class DishAdminController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Dish update(@Valid @RequestBody Dish newDish, @PathVariable("id") long id) throws NotFoundException {
-        log.info("update dish {} with id {}", newDish, id);
-        return dishService.update(newDish, id);
+    public Dish update(@Valid @RequestBody DishTo dishTo, @PathVariable("id") long id) throws NotFoundException {
+        log.info("update dish {} with id {}", dishTo, id);
+        assureIdConsistent(dishTo, id);
+        Restaurant restaurant = restaurantService.getById(dishTo.getRestaurantId());
+        Dish dish = new Dish(dishTo.getName(), dishTo.getPrice(), restaurant, dishTo.getDate());
+        return dishService.update(dish, id);
     }
 }
