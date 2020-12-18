@@ -1,6 +1,5 @@
 package topjava.graduation.web.admin;
 
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import topjava.graduation.model.Restaurant;
 import topjava.graduation.service.RestaurantService;
+import topjava.graduation.to.RestaurantTo;
 import topjava.graduation.util.exception.NotFoundException;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+import static topjava.graduation.util.RestaurantUtil.*;
+import static topjava.graduation.util.ValidationUtil.assureIdConsistent;
+
 
 @RequestMapping(value = RestaurantAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-@RequiredArgsConstructor
 public class RestaurantAdminController {
     public static final String REST_URL = "/rest/admin/restaurants";
     private static final Logger log = LoggerFactory.getLogger(RestaurantService.class);
@@ -28,10 +30,16 @@ public class RestaurantAdminController {
     private RestaurantService restaurantService;
 
     @GetMapping
-    public ResponseEntity<List<Restaurant>> getAll() {
+    public List<RestaurantTo> getAll() {
         log.info("get all restaurants");
-        return new ResponseEntity<>(restaurantService.getAll(), HttpStatus.OK);
+        return createListToFromListEntity(restaurantService.getAll());
     }
+
+   /* @GetMapping
+    public List<Restaurant> getAll() {
+        log.info("get all restaurants");
+        return restaurantService.getAll();
+    }*/
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -42,9 +50,9 @@ public class RestaurantAdminController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Restaurant> create(@Valid @RequestBody Restaurant restaurant) {
+    public ResponseEntity<RestaurantTo> create(@Valid @RequestBody RestaurantTo restaurant) {
         log.info("create restaurant {}", restaurant);
-        Restaurant created = restaurantService.create(restaurant);
+        RestaurantTo created = asTo(restaurantService.create(createNewFromTo(restaurant)));
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -52,16 +60,18 @@ public class RestaurantAdminController {
     }
 
     @GetMapping("/{id}")
-    public Restaurant getById(@PathVariable("id") long id) throws NotFoundException {
+    public RestaurantTo getById(@PathVariable("id") long id) throws NotFoundException {
         log.info("get restaurant by id: {}", id);
-        return restaurantService.getById(id);
+        return asTo(restaurantService.getById(id));
     }
 
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Restaurant update(@Valid @RequestBody Restaurant newRestaurant, @PathVariable("id") int id) throws NotFoundException {
-        log.info("update restaurant{} with id {}", newRestaurant, id);
-        return restaurantService.update(newRestaurant, id);
+    public RestaurantTo update(@Valid @RequestBody RestaurantTo restaurantTo, @PathVariable("id") int id) throws NotFoundException {
+        log.info("update restaurant{} with id {}", restaurantTo, id);
+        Restaurant restaurant = createNewFromTo(restaurantTo);
+        assureIdConsistent(restaurant, id);
+        return asTo(restaurantService.update(restaurant, id));
     }
 }

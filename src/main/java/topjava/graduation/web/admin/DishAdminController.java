@@ -70,9 +70,9 @@ public class DishAdminController {
     @ResponseStatus(HttpStatus.OK)
     public Dish update(@Valid @RequestBody DishTo dishTo, @PathVariable("id") long id) throws NotFoundException {
         log.info("update dish {} with id {}", dishTo, id);
-        assureIdConsistent(dishTo, id);
         Restaurant restaurant = restaurantService.getById(dishTo.getRestaurantId());
         Dish dish = new Dish(dishTo.getName(), dishTo.getPrice(), restaurant, dishTo.getDate());
+        assureIdConsistent(dish, id);
         return dishService.update(dish, id);
     }
 }

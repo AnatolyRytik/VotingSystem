@@ -25,7 +25,8 @@ public class DishTo extends BaseTo {
     @NotNull
     private final LocalDate date;
 
-    public DishTo(String name, Double price, Long restaurantId, LocalDate date) {
+
+    public DishTo(@NotBlank String name, @NotNull Double price, @NotNull Long restaurantId, @NotNull LocalDate date) {
         this.name = name;
         this.price = price;
         this.restaurantId = restaurantId;
