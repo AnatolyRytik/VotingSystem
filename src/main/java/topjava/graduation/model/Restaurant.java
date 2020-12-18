@@ -15,8 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Restaurant extends AbstractNamedEntity {
 
-    @JsonManagedReference
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
+    @JsonManagedReference(value = "restaurant")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private List<Dish> dishes;
 
 

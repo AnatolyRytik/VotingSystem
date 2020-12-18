@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import java.io.IOException;
 import java.util.List;
 
-import static topjava.graduation.web.json.JacksonObjectMapper.getMapper;
+import static topjava.graduation.web.json.JacksonConfiguration.getMapper;
 
 
 public class JsonUtil {
