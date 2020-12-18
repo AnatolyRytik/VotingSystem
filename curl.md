@@ -10,6 +10,12 @@
 
  `curl -s http://localhost:8080/rest/admin/restaurants --user admin@gmail.com:adminpass`
  
+ 
+ #####GET all restaurants with dishes:
+ 
+  `curl -s  http://localhost:8080/rest/admin/restaurants/with-dishes --user admin@gmail.com:adminpass`
+  
+ 
 #####GET restaurant with id 0:
 
  `curl -s http://localhost:8080/rest/admin/restaurants/0 --user admin@gmail.com:adminpass` 

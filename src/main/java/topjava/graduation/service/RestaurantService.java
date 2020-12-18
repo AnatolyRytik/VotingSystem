@@ -44,13 +44,19 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    @CacheEvict(value = {"restaurant", "restaurant_with_dishes"}, allEntries = true)
+    @Cacheable("all_restaurants_with_dishes")
+    public List<Restaurant> getAllWithDishes() {
+        log.info("get all restaurants");
+        return restaurantRepository.getAllRestaurantsWithDishes();
+    }
+
+    @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
     public void delete(long id) throws NotFoundException {
         log.info("delete restaurant with id {}", id);
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
-    @CacheEvict(value = {"restaurant", "restaurant_with_dishes"}, allEntries = true)
+    @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
     public Restaurant update(Restaurant restaurant, long id) throws NotFoundException {
         log.info("update restaurant {} with id {}", restaurant, id);
         Assert.notNull(restaurant, "restaurant must not be null");
@@ -59,14 +65,14 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.save(rest), id);
     }
 
-    @CacheEvict(value = {"restaurant", "restaurant_with_dishes"}, allEntries = true)
+    @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
     public Restaurant create(Restaurant restaurant) {
         log.info("create restaurant {}", restaurant);
         Assert.notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);
     }
 
-    @Cacheable("restaurant_with_dishes")
+    @Cacheable("today_restaurants_with_dishes")
     public List<Restaurant> getAllTodayRestaurantsWithDishes(LocalDate date) {
         log.info("get list of restaurants with dishes for today");
         return restaurantRepository.getAllTodayRestaurantsWithDishes(date);

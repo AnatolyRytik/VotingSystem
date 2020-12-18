@@ -43,6 +43,16 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void getAllWithDishes() throws Exception {
+        mockMvc.perform(get(REST_URL)
+                .with(userAuth(ADMIN_0))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json(JsonUtil.writeValue(RESTAURANTS)))
+                .andDo(print());
+    }
+
+    @Test
     void testGetById() throws Exception {
         mockMvc.perform(get(REST_URL + (RES_ID + 1))
                 .with(userAuth(ADMIN_0)))

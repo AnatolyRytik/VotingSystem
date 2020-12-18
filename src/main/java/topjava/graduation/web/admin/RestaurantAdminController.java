@@ -35,11 +35,11 @@ public class RestaurantAdminController {
         return createListToFromListEntity(restaurantService.getAll());
     }
 
-   /* @GetMapping
-    public List<Restaurant> getAll() {
-        log.info("get all restaurants");
-        return restaurantService.getAll();
-    }*/
+   @GetMapping("/with-dishes")
+    public List<Restaurant> getAllWithDishes() {
+        log.info("get all restaurants with dishes");
+        return restaurantService.getAllWithDishes();
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
