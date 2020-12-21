@@ -39,8 +39,7 @@ public class UserVoteController {
             @AuthenticationPrincipal AuthUser authUser) {
         long userId = authUser.id();
         log.info("get vote for user with id ={}, day ={}", userId, date);
-        return voteService.getUserVoteForDate(userId, date).orElseThrow(() -> new NotFoundException(
-                ("Vote not found")));
+        return voteService.getUserVoteForDate(userId, date);
     }
 
     @GetMapping(value = "/votes-by-date")

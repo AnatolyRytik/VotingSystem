@@ -34,9 +34,9 @@ public class DishAdminController {
     private RestaurantService restaurantService;
 
     @GetMapping
-    public ResponseEntity<List<Dish>> getAll() {
+    public List<Dish> getAll() {
         log.info("get all dishes");
-        return new ResponseEntity<>(dishService.getAll(), HttpStatus.OK);
+        return dishService.getAll();
     }
 
     @GetMapping("/{id}")

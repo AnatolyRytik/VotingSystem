@@ -10,6 +10,7 @@ import topjava.graduation.repository.RestaurantRepository;
 import topjava.graduation.repository.UserRepository;
 import topjava.graduation.repository.VoteRepository;
 import topjava.graduation.util.exception.DeadLineException;
+import topjava.graduation.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,9 +38,10 @@ public class VoteService {
         return voteRepository.countAllByRestaurantIdAndDate(restaurantId, date);
     }
 
-    public Optional<Vote> getUserVoteForDate(long userId, LocalDate date) {
+    public Vote getUserVoteForDate(long userId, LocalDate date) {
         log.info("get user with id ={} today={} vote", userId, date);
-        return voteRepository.getByUserIdAndDate(userId, date);
+        return voteRepository.getByUserIdAndDate(userId, date).orElseThrow(() -> new NotFoundException(
+                ("Vote not found")));
     }
 
     @Transactional

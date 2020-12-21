@@ -26,12 +26,13 @@ public class DishService {
         return dishRepository.findAll();
     }
 
-    public Dish getById(long id) throws NotFoundException {
+    public Dish getById(long id) {
         log.info("get dish with id {}", id);
-        return checkNotFoundWithId(dishRepository.findById(id).orElse(null), id);
+        return dishRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                ("Dish not found")));
     }
 
-    public void delete(long id) throws NotFoundException {
+    public void delete(long id){
         log.info("delete dish with id {}", id);
         checkNotFoundWithId(dishRepository.delete(id), id);
     }
@@ -42,7 +43,7 @@ public class DishService {
         return dishRepository.save(newDish);
     }
 
-    public Dish update(Dish newDish, long id) throws NotFoundException {
+    public Dish update(Dish newDish, long id) {
         log.info("update dish {} with id {}", newDish, id);
         Assert.notNull(newDish, "dish must not be null");
         Dish dish = getById(id);

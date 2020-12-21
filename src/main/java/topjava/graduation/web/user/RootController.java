@@ -28,8 +28,7 @@ public class RootController {
     @GetMapping("/name")
     public Restaurant findByName(@RequestParam("name") String name) {
         log.info("find restaurant by name ={}", name);
-        return restaurantService.findByName(name).orElseThrow(() -> new NotFoundException(
-                String.format("Restaurant with name %s not found", name)));
+        return restaurantService.findByName(name);
     }
 
     @GetMapping("/list")

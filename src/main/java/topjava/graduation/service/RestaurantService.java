@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static topjava.graduation.util.ValidationUtil.checkNotFoundWithId;
+import static topjava.graduation.util.ValidationUtil.checkNotFound;
 
 @Service
 @RequiredArgsConstructor
@@ -28,14 +29,17 @@ public class RestaurantService {
     @Autowired
     private final RestaurantRepository restaurantRepository;
 
-    public Restaurant getById(long id) throws NotFoundException {
+    public Restaurant getById(long id){
         log.info("restaurant with id {}", id);
-        return checkNotFoundWithId(restaurantRepository.findById(id).orElse(null), id);
+        return restaurantRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                ("Restaurant not found")));
     }
 
-    public Optional<Restaurant> findByName(String name) {
+    public Restaurant findByName(String name) {
         log.info("find restaurants by name ={}", name);
-        return restaurantRepository.findByNameIgnoreCase(name);
+        Assert.notNull(name, "email must not be null");
+        return restaurantRepository.findByNameIgnoreCase(name).orElseThrow(() -> new NotFoundException(
+                ("Restaurant not found")));
     }
 
     @Cacheable("restaurant")
@@ -51,13 +55,13 @@ public class RestaurantService {
     }
 
     @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
-    public void delete(long id) throws NotFoundException {
+    public void delete(long id) {
         log.info("delete restaurant with id {}", id);
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
     @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
-    public Restaurant update(Restaurant restaurant, long id) throws NotFoundException {
+    public Restaurant update(Restaurant restaurant, long id){
         log.info("update restaurant {} with id {}", restaurant, id);
         Assert.notNull(restaurant, "restaurant must not be null");
         Restaurant rest = getById(id);
