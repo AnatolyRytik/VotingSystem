@@ -32,12 +32,13 @@ public class VoteService {
         this.userRepository = userRepository;
     }
 
-
+    @Transactional(readOnly = true)
     public Integer getVotesCountByDate(long restaurantId, LocalDate date) {
         log.info("get votes for restaurant with id ={} by date ={}", restaurantId, date);
         return voteRepository.countAllByRestaurantIdAndDate(restaurantId, date);
     }
 
+    @Transactional(readOnly = true)
     public Vote getUserVoteForDate(long userId, LocalDate date) {
         log.info("get user with id ={} today={} vote", userId, date);
         return voteRepository.getByUserIdAndDate(userId, date).orElseThrow(() -> new NotFoundException(

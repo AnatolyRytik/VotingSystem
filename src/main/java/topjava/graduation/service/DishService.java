@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import topjava.graduation.model.Dish;
 import topjava.graduation.repository.DishRepository;
@@ -21,36 +22,36 @@ public class DishService {
     @Autowired
     private DishRepository dishRepository;
 
+    @Transactional(readOnly = true)
     public List<Dish> getAll() {
         log.info("get all dishes");
         return dishRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Dish getById(long id) {
         log.info("get dish with id {}", id);
         return dishRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 ("Dish not found")));
     }
 
+    @Transactional
     public void delete(long id){
         log.info("delete dish with id {}", id);
         checkNotFoundWithId(dishRepository.delete(id), id);
     }
 
+    @Transactional
     public Dish create(Dish newDish) {
         log.info("create dish {}", newDish);
         Assert.notNull(newDish, "dish must not be null");
         return dishRepository.save(newDish);
     }
 
+    @Transactional
     public Dish update(Dish newDish, long id) {
         log.info("update dish {} with id {}", newDish, id);
         Assert.notNull(newDish, "dish must not be null");
-        Dish dish = getById(id);
-        dish.setName(newDish.getName());
-        dish.setPrice(newDish.getPrice());
-        dish.setDate(newDish.getDate());
-        dish.setRestaurant(newDish.getRestaurant());
-        return checkNotFoundWithId(dishRepository.save(dish), id);
+        return checkNotFoundWithId(dishRepository.save(newDish), id);
     }
 }

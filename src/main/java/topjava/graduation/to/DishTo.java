@@ -1,6 +1,8 @@
 package topjava.graduation.to;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,20 +12,21 @@ import java.time.LocalDate;
 
 @Getter
 @ToString(callSuper = true)
+@NoArgsConstructor
 public class DishTo extends BaseTo {
 
     @NotBlank
-    private final String name;
+    private String name;
 
     @NotNull
-    private final Double price;
+    private Double price;
 
     @NotNull
-    private final Long restaurantId;
+    private Long restaurantId;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
-    private final LocalDate date;
+    private LocalDate date;
 
 
     public DishTo(@NotBlank String name, @NotNull Double price, @NotNull Long restaurantId, @NotNull LocalDate date) {

@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import topjava.graduation.model.Restaurant;
 import topjava.graduation.repository.RestaurantRepository;
@@ -29,12 +30,14 @@ public class RestaurantService {
     @Autowired
     private final RestaurantRepository restaurantRepository;
 
+    @Transactional(readOnly = true)
     public Restaurant getById(long id){
         log.info("restaurant with id {}", id);
         return restaurantRepository.findById(id).orElseThrow(() -> new NotFoundException(
                 ("Restaurant not found")));
     }
 
+    @Transactional(readOnly = true)
     public Restaurant findByName(String name) {
         log.info("find restaurants by name ={}", name);
         Assert.notNull(name, "email must not be null");
@@ -42,33 +45,36 @@ public class RestaurantService {
                 ("Restaurant not found")));
     }
 
+    @Transactional(readOnly = true)
     @Cacheable("restaurant")
     public List<Restaurant> getAll() {
         log.info("get all restaurants");
         return restaurantRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     @Cacheable("all_restaurants_with_dishes")
     public List<Restaurant> getAllWithDishes() {
         log.info("get all restaurants");
         return restaurantRepository.getAllRestaurantsWithDishes();
     }
 
+    @Transactional
     @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
     public void delete(long id) {
         log.info("delete restaurant with id {}", id);
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
+    @Transactional
     @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
     public Restaurant update(Restaurant restaurant, long id){
         log.info("update restaurant {} with id {}", restaurant, id);
         Assert.notNull(restaurant, "restaurant must not be null");
-        Restaurant rest = getById(id);
-        rest.setName(restaurant.getName());
-        return checkNotFoundWithId(restaurantRepository.save(rest), id);
+        return checkNotFoundWithId(restaurantRepository.save(restaurant), id);
     }
 
+    @Transactional
     @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
     public Restaurant create(Restaurant restaurant) {
         log.info("create restaurant {}", restaurant);
@@ -76,6 +82,7 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
+    @Transactional(readOnly = true)
     @Cacheable("today_restaurants_with_dishes")
     public List<Restaurant> getAllTodayRestaurantsWithDishes(LocalDate date) {
         log.info("get list of restaurants with dishes for today");
