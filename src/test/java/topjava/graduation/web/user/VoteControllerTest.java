@@ -14,7 +14,6 @@ import static topjava.graduation.testdata.UserTestData.USER_0;
 import static topjava.graduation.testdata.UserTestData.USER_1;
 
 class VoteControllerTest extends AbstractControllerTest {
-
     private static final String REST_URL = UserVoteController.REST_URL + "/";
 
     @Test
@@ -29,7 +28,7 @@ class VoteControllerTest extends AbstractControllerTest {
     void testGetVotesCountByDate() throws Exception {
         mockMvc.perform(get(REST_URL + "votes-by-date")
                 .param("date", "2020-11-24")
-                .param("id","2")
+                .param("id", "2")
                 .with(userHttpBasic(USER_0)))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -44,7 +43,6 @@ class VoteControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-
 
     @Test
     void vote() throws Exception {

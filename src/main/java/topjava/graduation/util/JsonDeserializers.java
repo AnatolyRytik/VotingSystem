@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import topjava.graduation.config.WebSecurityConfig;
 
-
 import java.io.IOException;
 
 public class JsonDeserializers {

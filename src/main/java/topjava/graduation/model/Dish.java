@@ -19,7 +19,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Dish extends AbstractNamedEntity {
 
-
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
     @Column(name = "date_time", nullable = false)

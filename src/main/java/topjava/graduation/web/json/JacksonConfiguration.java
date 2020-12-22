@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 /**
  * <p>
  * Handling Hibernate lazy-loading
@@ -32,7 +30,6 @@ public class JacksonConfiguration {
         mapper.registerModule(new JavaTimeModule());
         mapper.registerModule(new Hibernate5Module());
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

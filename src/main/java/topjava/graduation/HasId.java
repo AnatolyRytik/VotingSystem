@@ -3,7 +3,6 @@ package topjava.graduation;
 import org.springframework.util.Assert;
 
 public interface HasId {
-
     Long getId();
 
     void setId(Long id);

@@ -19,7 +19,6 @@ public class Restaurant extends AbstractNamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private List<Dish> dishes;
 
-
     public Restaurant(Long id, String name) {
         super(id, name);
     }

@@ -19,6 +19,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") long id);
 
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes WHERE r.name=:name")
     Optional<Restaurant> findByNameIgnoreCase(String name);
 
     @Query("SELECT r FROM Restaurant r WHERE r.id=:id")

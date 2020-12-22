@@ -1,35 +1,21 @@
 package topjava.graduation.web.user;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
-import topjava.graduation.TestUtil;
-import topjava.graduation.model.Restaurant;
-import topjava.graduation.service.RestaurantService;
-import topjava.graduation.service.UserServiceSecurity;
 import topjava.graduation.web.AbstractControllerTest;
-import topjava.graduation.web.json.JsonUtil;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static topjava.graduation.TestUtil.*;
-import static topjava.graduation.testdata.DishTestData.DISH_ID;
-import static topjava.graduation.testdata.DishTestData.DISH_MATCHER;
-import static topjava.graduation.testdata.RestaurantTestData.*;
-import static topjava.graduation.testdata.UserTestData.*;
+import static topjava.graduation.TestUtil.contentJson;
+import static topjava.graduation.TestUtil.userAuth;
+import static topjava.graduation.testdata.RestaurantTestData.RESTAURANT_2;
+import static topjava.graduation.testdata.RestaurantTestData.TODAY_RESTAURANTS;
+import static topjava.graduation.testdata.UserTestData.USER_1;
 
 
-class RootControllerTest extends AbstractControllerTest {
-
-    private static final String REST_URL = RootController.REST_URL + "/";
-    @Autowired
-    protected UserServiceSecurity userServiceSecurity;
-    @Autowired
-    protected RestaurantService restaurantService;
+class RestaurantUserControllerTest extends AbstractControllerTest {
+    private static final String REST_URL = RestaurantUserController.REST_URL + "/";
 
     @Test
     void testGetAllAuthorized() throws Exception {
@@ -37,7 +23,6 @@ class RootControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnauthorized());
     }
-
 
     @Test
     void findByName() throws Exception {

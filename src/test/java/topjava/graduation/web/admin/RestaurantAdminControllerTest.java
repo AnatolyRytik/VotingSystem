@@ -19,9 +19,7 @@ import static topjava.graduation.testdata.UserTestData.ADMIN_0;
 import static topjava.graduation.testdata.UserTestData.USER_1;
 
 class RestaurantAdminControllerTest extends AbstractControllerTest {
-
     private static final String REST_URL = RestaurantAdminController.REST_URL + "/";
-
 
     @Test
     void testDeleteForbidden() throws Exception {
@@ -87,7 +85,6 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
         RESTAURANT_MATCHER.assertMatch(returned, expected);
         RESTAURANT_MATCHER.assertMatch(restaurantService.getById(returned.getId()), expected);
     }
-
 
     @Test
     void testUpdate() throws Exception {

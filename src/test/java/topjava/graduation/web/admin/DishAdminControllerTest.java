@@ -1,13 +1,10 @@
 package topjava.graduation.web.admin;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import topjava.graduation.TestUtil;
-import topjava.graduation.model.Dish;
-import topjava.graduation.service.DishService;
-import topjava.graduation.service.UserServiceSecurity;
+import topjava.graduation.to.DishTo;
 import topjava.graduation.web.AbstractControllerTest;
 import topjava.graduation.web.json.JsonUtil;
 
@@ -23,15 +20,7 @@ import static topjava.graduation.testdata.UserTestData.USER_1;
 
 
 class DishAdminControllerTest extends AbstractControllerTest {
-
     private static final String REST_URL = DishAdminController.REST_URL + "/";
-
-    @Autowired
-    protected DishService dishService;
-
-    @Autowired
-    protected UserServiceSecurity userServiceSecurity;
-
 
     @Test
     public void testGetForbidden() throws Exception {
@@ -61,7 +50,6 @@ class DishAdminControllerTest extends AbstractControllerTest {
                 .andExpect(content().json(JsonUtil.writeValue(DISH_5)));
     }
 
-
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + DISH_ID)
@@ -71,27 +59,24 @@ class DishAdminControllerTest extends AbstractControllerTest {
                 .andDo(print());
     }
 
-
-   /* @Test
+    @Test
     public void testCreate() throws Exception {
-        Dish created = getCreatedDish();
+        DishTo created = getCreatedDish();
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .with(userAuth(ADMIN_0))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(created)))
                 .andExpect(status().isCreated());
 
-        Dish returned = readFromJson(action, Dish.class);
+        DishTo returned = readFromJson(action, DishTo.class);
         created.setId(returned.getId());
 
         DISH_MATCHER.assertMatch(returned, created);
-        DISH_MATCHER.assertMatch(dishService.getById(returned.getId()), created);
     }
-
 
     @Test
     public void testUpdate() throws Exception {
-        Dish expected = getUpdatedDish();
+        DishTo expected = getUpdatedDish();
         ResultActions action = mockMvc.perform(put(REST_URL + (DISH_ID + 4))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .with(TestUtil.userHttpBasic(ADMIN_0))
@@ -99,8 +84,7 @@ class DishAdminControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        Dish returned = TestUtil.readFromJson(action, Dish.class);
+        DishTo returned = TestUtil.readFromJson(action, DishTo.class);
         DISH_MATCHER.assertMatch(returned, expected);
-        DISH_MATCHER.assertMatch(dishService.getById(DISH_ID + 4), expected);
-    }*/
+    }
 }

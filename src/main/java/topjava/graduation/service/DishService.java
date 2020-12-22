@@ -1,8 +1,8 @@
 package topjava.graduation.service;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -15,12 +15,10 @@ import java.util.List;
 import static topjava.graduation.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
+@RequiredArgsConstructor
 public class DishService {
-
     private static final Logger log = LoggerFactory.getLogger(DishService.class);
-
-    @Autowired
-    private DishRepository dishRepository;
+    private final DishRepository dishRepository;
 
     @Transactional(readOnly = true)
     public List<Dish> getAll() {
@@ -36,7 +34,7 @@ public class DishService {
     }
 
     @Transactional
-    public void delete(long id){
+    public void delete(long id) {
         log.info("delete dish with id {}", id);
         checkNotFoundWithId(dishRepository.delete(id), id);
     }

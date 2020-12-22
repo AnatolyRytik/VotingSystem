@@ -2,6 +2,7 @@ package topjava.graduation.testdata;
 
 import topjava.graduation.TestMatcher;
 import topjava.graduation.model.Dish;
+import topjava.graduation.to.DishTo;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -21,14 +22,14 @@ public class DishTestData {
     public static final Dish DISH_4 = new Dish(DISH_ID + 4, LocalDate.of(2020, 11, 18), "Cheeseburger", 110.0, RESTAURANT_2);
     public static final Dish DISH_5 = new Dish(DISH_ID + 5, LocalDate.of(2020, 11, 18), "Double cheeseburger", 150.0, RESTAURANT_2);
     public static final List<Dish> DISHES = Arrays.asList(DISH_0, DISH_1, DISH_2, DISH_3, DISH_4, DISH_5);
-    public static TestMatcher<Dish> DISH_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Dish.class, "restaurant");
+    public static TestMatcher<DishTo> DISH_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(DishTo.class, "restaurantId");
 
-    public static Dish getUpdatedDish() {
-        return new Dish(DISH_ID + 4, LocalDate.now(), DISH_5.getName(), 65.0, RESTAURANT_2);
+    public static DishTo getUpdatedDish() {
+        return new DishTo(4L, DISH_5.getName(), 65.0, 2L, LocalDate.now());
     }
 
-    public static Dish getCreatedDish() {
-        return new Dish(null, LocalDate.now(), "Caesar Salad", 160.0, RESTAURANT_2);
+    public static DishTo getCreatedDish() {
+        return new DishTo("Caesar Salad", 160.0, 2L, LocalDate.now());
     }
 
 }

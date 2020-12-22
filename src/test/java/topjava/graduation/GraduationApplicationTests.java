@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import topjava.graduation.web.admin.DishAdminController;
 import topjava.graduation.web.admin.RestaurantAdminController;
-import topjava.graduation.web.user.RootController;
+import topjava.graduation.web.user.RestaurantUserController;
 import topjava.graduation.web.user.UserVoteController;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +27,7 @@ public class GraduationApplicationTests {
     private UserVoteController voteController;
 
     @Autowired
-    private RootController rootController;
+    private RestaurantUserController restaurantUserController;
 
     @Test
     public void contextLoadsRestaurants() throws Exception {
@@ -46,7 +46,7 @@ public class GraduationApplicationTests {
 
     @Test
     public void contextLoadsRoot() throws Exception {
-        assertThat(rootController).isNotNull();
+        assertThat(restaurantUserController).isNotNull();
     }
 
 }

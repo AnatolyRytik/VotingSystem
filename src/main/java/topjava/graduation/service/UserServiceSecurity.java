@@ -1,8 +1,8 @@
 package topjava.graduation.service;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,12 +15,10 @@ import topjava.graduation.web.AuthUser;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceSecurity implements UserDetailsService {
-
     private final Logger log = LoggerFactory.getLogger(UserServiceSecurity.class);
-
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional

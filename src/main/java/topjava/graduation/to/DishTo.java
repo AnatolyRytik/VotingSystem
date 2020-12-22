@@ -1,6 +1,5 @@
 package topjava.graduation.to;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -28,8 +27,15 @@ public class DishTo extends BaseTo {
     @NotNull
     private LocalDate date;
 
-
     public DishTo(@NotBlank String name, @NotNull Double price, @NotNull Long restaurantId, @NotNull LocalDate date) {
+        this.name = name;
+        this.price = price;
+        this.restaurantId = restaurantId;
+        this.date = date;
+    }
+
+    public DishTo(Long id, @NotBlank String name, @NotNull Double price, @NotNull Long restaurantId, @NotNull LocalDate date) {
+        super(id);
         this.name = name;
         this.price = price;
         this.restaurantId = restaurantId;

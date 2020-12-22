@@ -33,15 +33,12 @@ public class User extends AbstractNamedEntity implements Serializable {
     @Size(max = 100)
     private String email;
 
-
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     @NotNull
     private Date registered = new Date();
 
-
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
-
 
     @Column(name = "password")
     @Size(max = 256)
@@ -54,7 +51,6 @@ public class User extends AbstractNamedEntity implements Serializable {
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
 
     public User(Long id, String name) {
         super(id, name);
