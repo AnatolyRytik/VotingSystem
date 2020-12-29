@@ -9,10 +9,6 @@
 #####GET all restaurants:
 
 `curl -s http://localhost:8080/rest/admin/restaurants --user admin@gmail.com:adminpass`
- 
- #####GET all restaurants with dishes:
- 
-`curl -s  http://localhost:8080/rest/admin/restaurants/with-dishes --user admin@gmail.com:adminpass`
    
 #####GET restaurant with id 0:
 
@@ -61,11 +57,11 @@
 
 #####GET votes for restaurant with id 2:
 
-`curl -s http://localhost:8080/rest/votes/votes-by-date/?date=2020-11-24&id=2 --user userone@yandex.ru:useronepass`
+`curl -s http://localhost:8080/rest/votes/votes-by-date/?date=2020-11-24&restaurant_id=2 --user userone@yandex.ru:useronepass`
 
 #####CREATE(UPDATE) vote for restaurant with id 2:
 
-`curl -s -X POST -d ' {"restaurant_id": 2"} ' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/rest/votes/2 --user userone@yandex.ru:useronepass`
+`curl -s -X POST 'http://localhost:8080/rest/votes?restaurant_id=2' -H'Content-Type:application/json;charset=UTF-8' --user userone@yandex.ru:useronepass`
 
 #####GET restaurant by name:
 
@@ -73,4 +69,4 @@
 
 #####GET list of restaurants with dishes for today:
 
-`curl -s http://localhost:8080/rest/restaurants/list --user userone@yandex.ru:useronepass`
+`curl -s http://localhost:8080/rest/restaurants/with-dishes --user userone@yandex.ru:useronepass`

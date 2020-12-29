@@ -28,7 +28,7 @@ public class RestaurantUserController {
         return restaurantService.findByName(name);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/with-dishes")
     public List<Restaurant> getAllWithDishesByDate() {
         log.info("list of restaurants with dishes for today");
         return restaurantService.getAllTodayRestaurantsWithDishes(LocalDate.now());

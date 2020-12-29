@@ -25,8 +25,8 @@ public class UserVoteController {
     private final VoteService voteService;
 
     @ResponseStatus(value = HttpStatus.OK)
-    @PostMapping(value = "/{id}")
-    public void vote(@PathVariable("id") long restaurantId, @AuthenticationPrincipal AuthUser authUser) {
+    @PostMapping
+    public void vote(@RequestParam("restaurant_id") long restaurantId, @AuthenticationPrincipal AuthUser authUser) {
         log.info("vote of user with id ={}", authUser.id());
         voteService.createOrUpdateVote(restaurantId, LocalTime.now(), authUser.id());
     }
@@ -43,7 +43,7 @@ public class UserVoteController {
     @GetMapping(value = "/votes-by-date")
     public Integer getVotesCountByDate(@RequestParam(value = "date")
                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-                                       @RequestParam("id") long restaurantId) {
+                                       @RequestParam("restaurant_id") long restaurantId) {
         log.info("get votes for restaurant with id ={} by date ={}", restaurantId, date);
         return voteService.getVotesCountByDate(restaurantId, date);
     }

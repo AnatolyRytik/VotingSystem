@@ -35,12 +35,6 @@ public class RestaurantAdminController {
         return createListToFromListEntity(restaurantService.getAll());
     }
 
-    @GetMapping("/with-dishes")
-    public List<Restaurant> getAllWithDishes() {
-        log.info("get all restaurants with dishes");
-        return restaurantService.getAllWithDishes();
-    }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") long id) throws NotFoundException {
