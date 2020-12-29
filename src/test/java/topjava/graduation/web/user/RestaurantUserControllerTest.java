@@ -36,7 +36,7 @@ class RestaurantUserControllerTest extends AbstractControllerTest {
 
     @Test
     void getAllTodayRestaurantsWithDishes() throws Exception {
-        mockMvc.perform(get(REST_URL + "list")
+        mockMvc.perform(get(REST_URL + "with-dishes")
                 .with(userAuth(USER_1))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

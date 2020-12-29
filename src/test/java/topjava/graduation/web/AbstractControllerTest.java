@@ -15,7 +15,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import topjava.graduation.service.DishService;
 import topjava.graduation.service.RestaurantService;
-import topjava.graduation.service.UserServiceSecurity;
 import topjava.graduation.service.VoteService;
 
 import javax.annotation.PostConstruct;
@@ -35,8 +34,6 @@ public abstract class AbstractControllerTest {
     }
 
     protected MockMvc mockMvc;
-    @Autowired
-    protected UserServiceSecurity userServiceSecurity;
     @Autowired
     protected RestaurantService restaurantService;
     @Autowired

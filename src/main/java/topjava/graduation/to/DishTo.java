@@ -18,7 +18,7 @@ public class DishTo extends BaseTo {
     private String name;
 
     @NotNull
-    private Double price;
+    private Integer price;
 
     @NotNull
     private Long restaurantId;
@@ -27,14 +27,14 @@ public class DishTo extends BaseTo {
     @NotNull
     private LocalDate date;
 
-    public DishTo(@NotBlank String name, @NotNull Double price, @NotNull Long restaurantId, @NotNull LocalDate date) {
+    public DishTo(@NotBlank String name, @NotNull Integer price, @NotNull Long restaurantId, @NotNull LocalDate date) {
         this.name = name;
         this.price = price;
         this.restaurantId = restaurantId;
         this.date = date;
     }
 
-    public DishTo(Long id, @NotBlank String name, @NotNull Double price, @NotNull Long restaurantId, @NotNull LocalDate date) {
+    public DishTo(Long id, @NotBlank String name, @NotNull Integer price, @NotNull Long restaurantId, @NotNull LocalDate date) {
         super(id);
         this.name = name;
         this.price = price;
