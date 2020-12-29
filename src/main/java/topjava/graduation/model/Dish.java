@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "dish_name_idx")})
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "lunch_date", "name"}, name = "dish_name_idx")})
 @ToString(callSuper = true, exclude = {"restaurant"})
 @Getter
 @Setter
@@ -21,7 +21,7 @@ public class Dish extends AbstractNamedEntity {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
-    @Column(name = "date_time", nullable = false)
+    @Column(name = "lunch_date", nullable = false)
     private LocalDate date;
 
     @NotNull
@@ -46,9 +46,5 @@ public class Dish extends AbstractNamedEntity {
         this.date = date;
         this.price = price;
         this.restaurant = restaurant;
-    }
-
-    public Dish(Dish dish) {
-        this(dish.getId(), dish.getDate(), dish.getName(), dish.getPrice(), dish.getRestaurant());
     }
 }

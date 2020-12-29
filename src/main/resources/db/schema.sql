@@ -39,21 +39,21 @@ CREATE TABLE restaurant
 CREATE TABLE dish
 (
     id            BIGINT DEFAULT global_seq.nextval PRIMARY KEY,
-    date_time     DATE    NOT NULL,
+    lunch_date    DATE    NOT NULL,
     name          VARCHAR(255),
     price         INTEGER NOT NULL,
     restaurant_id BIGINT  NOT NULL,
-    CONSTRAINT dish_name_idx UNIQUE (name),
+    CONSTRAINT dish_name_idx UNIQUE (restaurant_id, lunch_date, name),
     FOREIGN KEY (restaurant_id) REFERENCES restaurant (id) ON DELETE CASCADE
 );
 
 CREATE TABLE vote
 (
     id            BIGINT DEFAULT global_seq.nextval PRIMARY KEY,
-    date_time     DATE   NOT NULL,
+    vote_date     DATE   NOT NULL,
     restaurant_id BIGINT NOT NULL,
     user_id       BIGINT NOT NULL,
-    CONSTRAINT user_vote_date_idx UNIQUE (user_id, date_time),
+    CONSTRAINT user_vote_date_idx UNIQUE (user_id, vote_date),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (restaurant_id) REFERENCES restaurant (id) ON DELETE CASCADE
 );

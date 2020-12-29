@@ -26,7 +26,7 @@ VALUES (0, 'MacDonalds'),
        (1, 'KFC'),
        (2, 'Burger King');
 
-INSERT INTO dish (id, date_time, name, price, restaurant_id)
+INSERT INTO dish (id, lunch_date, name, price, restaurant_id)
 VALUES (0, today(), 'Bigmac', 300, 0),
        (1, today(), 'Coca cola', 100, 0),
        (2, today(), 'Chicken nuggets', 150, 1),
@@ -34,6 +34,6 @@ VALUES (0, today(), 'Bigmac', 300, 0),
        (4, '2020-11-18', 'Cheeseburger', 110, 2),
        (5, '2020-11-18', 'Double cheeseburger', 150, 2);
 
-INSERT INTO vote (id, user_id, restaurant_id, date_time)
+INSERT INTO vote (id, user_id, restaurant_id, vote_date)
 VALUES (0, 0, 1, today()),
        (1, 1, 2, '2020-11-24');

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "user_vote_date_idx")})
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "vote_date"}, name = "user_vote_date_idx")})
 @ToString(callSuper = true)
 @Getter
 @Setter
@@ -33,7 +33,7 @@ public class Vote extends AbstractBaseEntity {
     private Long restaurantId;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @Column(name = "date_time", unique = true)
+    @Column(name = "vote_date", unique = true)
     @NotNull
     private LocalDate date;
 
