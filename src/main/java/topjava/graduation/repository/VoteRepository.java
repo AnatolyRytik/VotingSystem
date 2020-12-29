@@ -18,12 +18,12 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
     @Transactional
     Vote save(Vote vote);
 
-    Integer countAllByRestaurantIdAndDate(long restaurant_id, @Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
+    Integer countAllByRestaurantIdAndDate(long restaurant_id, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date);
 
     Optional<Vote> getByUserIdAndDate(Long id, LocalDate date);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM Vote v WHERE v.id=:id")
-    int delete(@Param("id") long id);
+    int delete(long id);
 }
