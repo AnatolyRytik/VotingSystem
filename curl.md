@@ -26,6 +26,10 @@
  
 `curl -s -X PUT -d '{"id": 2, "name": "Big Fernand Burgers"}' -H 'Content-Type: application/json' http://localhost:8080/rest/admin/restaurants/2 --user admin@gmail.com:adminpass`
 
+#####GET votes for restaurant with id 2:
+
+`curl -s http://localhost:8080/rest/admin/restaurants/votes-by-date?date=2020-11-24&restaurant_id=2 --user admin@gmail.com:adminpass`
+
 
 #### Actions with Dishes
 
@@ -54,10 +58,6 @@
 
 #####GET user vote for date:
 `curl -s http://localhost:8080/rest/votes?date=2020-11-24 --user userone@yandex.ru:useronepass`
-
-#####GET votes for restaurant with id 2:
-
-`curl -s http://localhost:8080/rest/votes/votes-by-date/?date=2020-11-24&restaurant_id=2 --user userone@yandex.ru:useronepass`
 
 #####CREATE(UPDATE) vote for restaurant with id 2:
 

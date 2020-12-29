@@ -39,12 +39,4 @@ public class UserVoteController {
         log.info("get vote for user with id ={}, day ={}", userId, date);
         return voteService.getUserVoteForDate(userId, date);
     }
-
-    @GetMapping(value = "/votes-by-date")
-    public Integer getVotesCountByDate(@RequestParam(value = "date")
-                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-                                       @RequestParam("restaurant_id") long restaurantId) {
-        log.info("get votes for restaurant with id ={} by date ={}", restaurantId, date);
-        return voteService.getVotesCountByDate(restaurantId, date);
-    }
 }

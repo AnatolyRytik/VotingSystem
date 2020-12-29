@@ -12,11 +12,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static topjava.graduation.TestUtil.readFromJson;
-import static topjava.graduation.TestUtil.userAuth;
+import static topjava.graduation.TestUtil.*;
 import static topjava.graduation.testdata.RestaurantTestData.*;
-import static topjava.graduation.testdata.UserTestData.ADMIN_0;
-import static topjava.graduation.testdata.UserTestData.USER_1;
+import static topjava.graduation.testdata.UserTestData.*;
 
 class RestaurantAdminControllerTest extends AbstractControllerTest {
     private static final String REST_URL = RestaurantAdminController.REST_URL + "/";
@@ -100,6 +98,17 @@ class RestaurantAdminControllerTest extends AbstractControllerTest {
 
         RESTAURANT_MATCHER.assertMatch(returned, expected);
         RESTAURANT_MATCHER.assertMatch(restaurantService.getById(RES_ID), expected);
+    }
+
+    @Test
+    void testGetVotesCountByDate() throws Exception {
+        mockMvc.perform(get(REST_URL + "votes-by-date")
+                .param("date", "2020-11-24")
+                .param("restaurant_id", "2")
+                .with(userHttpBasic(ADMIN_0)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("1"));
     }
 
 }

@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class VoteService {
     private static final Logger log = LoggerFactory.getLogger(VoteService.class);
-    private static final LocalTime TIME_LIMIT = LocalTime.parse("11:00");
+    private static final LocalTime TIME_LIMIT = LocalTime.of(11,0);
     private final VoteRepository voteRepository;
 
     @Transactional(readOnly = true)
@@ -47,9 +47,8 @@ public class VoteService {
             if (time.isAfter(TIME_LIMIT)) {
                 throw new DeadLineException("Time to make vote expired!");
             }
-            Vote oldVote = optionalVote.get();
-            oldVote.setRestaurantId(restaurantId);
-            vote = oldVote;
+            vote = optionalVote.get();
+            vote.setRestaurantId(restaurantId);
         } else {
             log.debug("User's first vote for today");
             vote = new Vote(userId, restaurantId, LocalDate.now());
