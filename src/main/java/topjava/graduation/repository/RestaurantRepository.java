@@ -3,7 +3,6 @@ package topjava.graduation.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import topjava.graduation.model.Restaurant;
 
@@ -21,12 +20,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     @Query("SELECT r FROM Restaurant r JOIN FETCH r.dishes WHERE r.name=:name")
     Optional<Restaurant> findByNameIgnoreCase(String name);
-
-    @Query("SELECT r FROM Restaurant r WHERE r.id=:id")
-    Restaurant getById(long id);
-
-    @Query("SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishes ORDER BY r.name")
-    List<Restaurant> getAllRestaurantsWithDishes();
 
     @Transactional
     @Override

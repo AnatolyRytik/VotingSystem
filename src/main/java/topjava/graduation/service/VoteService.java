@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class VoteService {
     private static final Logger log = LoggerFactory.getLogger(VoteService.class);
-    private static final LocalTime TIME_LIMIT = LocalTime.of(11,0);
+    private static final LocalTime TIME_LIMIT = LocalTime.of(11, 0);
     private final VoteRepository voteRepository;
 
     @Transactional(readOnly = true)

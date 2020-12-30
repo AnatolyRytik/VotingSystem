@@ -14,7 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static topjava.graduation.TestUtil.*;
 import static topjava.graduation.testdata.RestaurantTestData.*;
-import static topjava.graduation.testdata.UserTestData.*;
+import static topjava.graduation.testdata.UserTestData.ADMIN_0;
+import static topjava.graduation.testdata.UserTestData.USER_1;
 
 class RestaurantAdminControllerTest extends AbstractControllerTest {
     private static final String REST_URL = RestaurantAdminController.REST_URL + "/";
