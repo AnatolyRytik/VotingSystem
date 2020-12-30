@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import topjava.graduation.model.Restaurant;
 import topjava.graduation.repository.RestaurantRepository;
+import topjava.graduation.to.DishTo;
 import topjava.graduation.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -33,6 +34,13 @@ public class RestaurantService {
     }
 
     @Transactional(readOnly = true)
+    public Restaurant getOneByDish(DishTo dishTo) {
+        log.info("get restaurant with dish {}", dishTo);
+        return restaurantRepository.findById(dishTo.getRestaurantId()).orElseThrow(() -> new NotFoundException(
+                ("Restaurant not found")));
+    }
+
+    @Transactional(readOnly = true)
     public Restaurant findByName(String name) {
         log.info("find restaurants by name ={}", name);
         Assert.notNull(name, "email must not be null");
@@ -41,28 +49,20 @@ public class RestaurantService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable("restaurant")
     public List<Restaurant> getAll() {
         log.info("get all restaurants");
         return restaurantRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
-    @Cacheable("all_restaurants_with_dishes")
-    public List<Restaurant> getAllWithDishes() {
-        log.info("get all restaurants with dishes");
-        return restaurantRepository.getAllRestaurantsWithDishes();
-    }
-
     @Transactional
-    @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
+    @CacheEvict(value = {"today_restaurants_with_dishes"}, allEntries = true)
     public void delete(long id) {
         log.info("delete restaurant with id {}", id);
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 
     @Transactional
-    @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
+    @CacheEvict(value = {"today_restaurants_with_dishes"}, allEntries = true)
     public Restaurant update(Restaurant restaurant, long id) {
         log.info("update restaurant {} with id {}", restaurant, id);
         Assert.notNull(restaurant, "restaurant must not be null");
@@ -70,7 +70,7 @@ public class RestaurantService {
     }
 
     @Transactional
-    @CacheEvict(value = {"restaurant", "all_restaurants_with_dishes", "restaurant_with_dishes"}, allEntries = true)
+    @CacheEvict(value = {"today_restaurants_with_dishes"}, allEntries = true)
     public Restaurant create(Restaurant restaurant) {
         log.info("create restaurant {}", restaurant);
         Assert.notNull(restaurant, "restaurant must not be null");

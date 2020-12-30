@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 import static topjava.graduation.util.ValidationUtil.assureIdConsistent;
+import static topjava.graduation.util.ValidationUtil.checkNew;
 
 @RestController
 @RequestMapping(value = DishAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,8 +54,9 @@ public class DishAdminController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Dish> create(@Valid @RequestBody DishTo dishTo) {
         log.info("create dish {}", dishTo);
-        Restaurant restaurant = restaurantService.getById(dishTo.getRestaurantId());
+        Restaurant restaurant = restaurantService.getOneByDish(dishTo);
         Dish dish = new Dish(dishTo.getName(), dishTo.getPrice(), restaurant, dishTo.getDate());
+        checkNew(dish);
         Dish created = dishService.create(dish);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -66,7 +68,7 @@ public class DishAdminController {
     @ResponseStatus(HttpStatus.OK)
     public Dish update(@Valid @RequestBody DishTo dishTo, @PathVariable("id") long id) throws NotFoundException {
         log.info("update dish {} with id {}", dishTo, id);
-        Restaurant restaurant = restaurantService.getById(dishTo.getRestaurantId());
+        Restaurant restaurant = restaurantService.getOneByDish(dishTo);
         Dish dish = new Dish(dishTo.getName(), dishTo.getPrice(), restaurant, dishTo.getDate());
         assureIdConsistent(dish, id);
         return dishService.update(dish, id);

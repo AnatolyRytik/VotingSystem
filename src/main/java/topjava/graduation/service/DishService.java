@@ -3,6 +3,7 @@ package topjava.graduation.service;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -34,12 +35,14 @@ public class DishService {
     }
 
     @Transactional
+    @CacheEvict(value = {"today_restaurants_with_dishes"}, allEntries = true)
     public void delete(long id) {
         log.info("delete dish with id {}", id);
         checkNotFoundWithId(dishRepository.delete(id), id);
     }
 
     @Transactional
+    @CacheEvict(value = {"today_restaurants_with_dishes"}, allEntries = true)
     public Dish create(Dish newDish) {
         log.info("create dish {}", newDish);
         Assert.notNull(newDish, "dish must not be null");
@@ -47,6 +50,7 @@ public class DishService {
     }
 
     @Transactional
+    @CacheEvict(value = {"today_restaurants_with_dishes"}, allEntries = true)
     public Dish update(Dish newDish, long id) {
         log.info("update dish {} with id {}", newDish, id);
         Assert.notNull(newDish, "dish must not be null");
